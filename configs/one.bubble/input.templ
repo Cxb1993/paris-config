@@ -113,14 +113,8 @@ RHO2    = 8.0      !
 MU2     = 8.0      !
 		   ! rho2, mu2 : properties of the drop
 SIGMA    = 800.0
-NumBubble =  1
-! number of bubbles
-xyzrad(1, 1)  = 0.5
-xyzrad(2, 1)  = 0.5
-xyzrad(3, 1)  = 0.8263
-xyzrad(4, 1)  = 0.125
 
-		   ! Initial bubble size and location : x,y,z,radius
+#include "bubbles/two.inc"
 
 MaxPoint = 2000000
 MaxElem  = 4000000
