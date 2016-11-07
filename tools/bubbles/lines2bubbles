@@ -1,0 +1,37 @@
+#!/usr/bin/awk -f
+
+# Usage:
+# lines2bubbles < lines > bubbles
+#
+# Format of file `lines':
+# x y z r
+#
+# Format of file `bubbles':
+# NumBubble = <nb>
+# xyzrad(1, 1)  = 0.5
+# xyzrad(2, 1)  = 0.5
+# xyzrad(3, 1)  = 0.8263
+# xyzrad(4, 1)  = 0.125
+
+function empytp() { # empty?
+    $0 ~ /^[\t ]*$/
+}
+
+(!empytp()) {
+    nb ++ # one-based indexing
+    xx[nb]=$1; yy[nb]=$2; zz[nb]=$3; rr[nb]=$4
+}
+
+END {
+    printf "NumBubble = %s\n", nb
+    printf "! number of bubbles\n"
+    printf "! Initial bubble size and location : x,y,z,radius\n"
+
+    for (ib = 1; ib <= nb; ib++) {
+	if (ib > 1) printf "\n"
+	printf "xyzrad(1, %d) = %s\n", ib, xx[ib]
+	printf "xyzrad(2, %d) = %s\n", ib, yy[ib]
+	printf "xyzrad(3, %d) = %s\n", ib, zz[ib]
+	printf "xyzrad(4, %d) = %s\n", ib, rr[ib]
+    }
+}

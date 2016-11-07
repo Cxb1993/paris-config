@@ -1,0 +1,1 @@
+A bubble configuration generator
