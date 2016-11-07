@@ -1,0 +1,12 @@
+/* define helper maxima functions */
+
+load("dimension");
+alias(di, dimension) $
+
+prefix("##", 70, clause, clause) $
+
+"##"(e):= if not listp(eq) then eq: [e] elseif not member(e, eq) then push(e, eq) $
+
+/* add units and description to symbol `a' */
+un(a, di0, de0):=(put(a, de0, de), put(a, di0, di)) $
+who(a):=printf(true, "~a ::: ~a ::: ~a~%", a, get(a, 'di), get(a, 'de)) $
