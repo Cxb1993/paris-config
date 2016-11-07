@@ -3,7 +3,7 @@
 VOFBDRY_COND = 'periodic' 'periodic' 'dry'
 		   ! Type of VOF boundary condition in x,y,z direction: 'wet', '90deg','periodic'
 
-TEST_TYPE = 'droplet_poiseuille'
+TEST_TYPE = 'bubbles_test'
 VOF_ADVECT = 'Dick_Yue'
 DoLPP     = F
 !=================================================================================================
