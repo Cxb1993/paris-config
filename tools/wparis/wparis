@@ -1,0 +1,75 @@
+#!/usr/bin/awk -f
+
+# a wrapper to PARIS
+# Supports:
+#  #include "file"
+
+# Usage:
+# wparis <number of processors> <template file>
+
+function init() {
+    stderr = "cat 1>&2"
+}
+
+function usage() {
+    print "Usage: wparis <number of processor> <template file>" | \
+	stderr
+}
+
+function die () {
+    usage()
+    exit(2)
+}
+
+function sys(e) {
+    printf "(wparis) %s\n", e | stderr
+    return system(e)
+}
+
+function read(f,   sep, line, cont) { # return a content of file as a
+				 # string
+    sep = ""
+    while (getline line < f > 0) {
+	if (includep(line)) line = read(INC_FILE)
+	cont = cont sep line
+	sep = "\n"
+    }
+    return cont
+}
+
+function includep(line) { # is it a #include "FILE"? Sets `INC_FILE'
+    sub(line, /!.*/, "") # skip comments
+    if (line ~ /^#include /) { # generate file name
+	sub(/^#include /, "", line) # cut #include
+	sub(/^[\t ]*"/, "", line)   # cut spaces befor "
+	sub(/"[\t ]*/, "", line)    # cut spaces  after "
+	INC_FILE = line
+	print "(wparis) include " INC_FILE | stderr
+	return 1
+    }
+    return 0
+}
+
+function process() {
+
+}
+
+function write() {
+    print "(wparis) creating input" | stderr
+    print  f > "input"
+}
+
+BEGIN {
+    init()
+    if (ARGC != 3) die()
+
+    np = ARGV[1]
+    templ = ARGV[2]
+
+    f = read(templ)
+    process()
+    write()
+
+    cmd = sprintf("mpirun -np %d paris", np)
+    sys(cmd)
+}
