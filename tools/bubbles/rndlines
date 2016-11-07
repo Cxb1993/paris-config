@@ -7,7 +7,7 @@ function init() {
     xh = yh = zh = 1
     Lx = xh - xl; Ly = yh - yl; Lz = zh - zl # domain size
 
-    pbcx=1; pbcy=1; pbcz=0 # where are periodic boundaries?
+    pbcx=0; pbcy=0; pbcz=0 # where are periodic boundaries?
 
     nb0 = ARGV[1] # target number of bubbles
     r   = ARGV[2] # bubble radius
@@ -55,13 +55,13 @@ function reg() { # register a bubble
 }
 
 function write(   ib) { # write lines with bubbles
+    # TODO: should generate periodic images
     for (ib = 1; ib <= nb; ib ++)
 	print xx[ib], yy[ib], zz[ib], rr[ib]
 }
 
 BEGIN {
     init()
-
     while (1) {
 	if (nb == nb0) break
 	gen() # generate `x', `y', `z'
