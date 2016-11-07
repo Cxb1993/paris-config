@@ -1,0 +1,72 @@
+#!/usr/bin/awk -f
+#
+# Generate a random configuration of bubbles
+
+function init() {
+    xl = yl = zl = 0 # domain box
+    xh = yh = zh = 1
+    Lx = xh - xl; Ly = yh - yl; Lz = zh - zl # domain size
+
+    pbcx=1; pbcy=1; pbcz=0 # where are periodic boundaries?
+
+    nb0 = ARGV[1] # target number of bubbles
+    r   = ARGV[2] # bubble radius
+}
+
+function gen() { # sets `x', `y', `z'
+    x = xl + Lx*rand(); y = yl + Ly*rand(); z = zl + Lz*rand()
+}
+
+function gwallx() { # overlaps with the wall?
+    return pbcx || (x + r < xh && x - r > xl)
+}
+
+function gwally() {
+    return pbcy || (y + r < yh && y - r > yl)
+}
+
+function gwallz() {
+    return pbcz || (z + r < zh && z - r > zl)
+}
+
+function overlap(x0, y0, z0, r0,    d) {
+    d = (x - x0)^2 + (y - y0)^2 + (z - z0)^2; d = sqrt(d)
+    if (d < r0 + r) return 1
+}
+
+function grest(   ib, x0, y0, z0, d) { # overlaps with other bubbles?
+    for (ib = 1; ib <= nb; ib ++) {
+	x0 = xx[ib]; y0 = yy[ib]; z0 = zz[ib]; r0 = rr[ib]
+	if (overlap(x0, y0, z0, r0)) return 0 # if bubble overlaps with periodic images
+	if (pbcx && (overlap(x0 + Lx, y0,      z0     , r0) || overlap(x0 - Lx, y0     , z0     , r0))) return 0
+	if (pbcy && (overlap(x0     , y0 + Ly, z0     , r0) || overlap(x0     , y0 - Ly, z0     , r0))) return 0
+	if (pbcz && (overlap(x0     , y0     , z0 + Lz, r0) || overlap(x0     , y0     , z0 - Lz, r0))) return 0
+    }
+    return 1 # does not overlap
+}
+
+function good() {
+    return gwallx() && gwally() && gwallz() && grest()
+}
+
+function reg() { # register a bubble
+    nb++;
+    xx[nb] = x; yy[nb] = y; zz[nb] = z; rr[nb] = r
+}
+
+function write(   ib) { # write lines with bubbles
+    for (ib = 1; ib <= nb; ib ++)
+	print xx[ib], yy[ib], zz[ib], rr[ib]
+}
+
+BEGIN {
+    init()
+
+    while (1) {
+	if (nb == nb0) break
+	gen() # generate `x', `y', `z'
+	if (!good()) continue
+	reg()
+    }
+    write()
+}

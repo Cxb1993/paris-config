@@ -2,6 +2,7 @@
 
 # Usage:
 # lines2bubbles < lines > bubbles
+# echo 1 2 3 4 | ./lines2bubbles
 #
 # Format of file `lines':
 # x y z r
