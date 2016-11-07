@@ -52,8 +52,8 @@ U_init   = 0.d0
 termout  = 10
 ICOut    = T            ! output initial condition
 NOUT     = 100          ! write the solution to file every nout time steps
-output_format = 4       ! 1:tecplot 2:vtk
-out_path = 'out_dir'    ! name of the output directory
+output_format = 5       ! 1:tecplot 2:vtk 5:silo
+out_path = 'out'        ! name of the output directory
 
 nstats   = 20           ! number of time steps between flow statistics calculations
 
