@@ -1,5 +1,6 @@
-mkdir -p paris-src
-cd       paris-src
+#!/bin/bash
+
+Install paris and third party libraries
 
 install_vofi () {
     (
@@ -47,6 +48,8 @@ install_paris () {
 	 VOFI_DIR=$HOME/prefix/vofi/lib
 }
 
+mkdir -p paris-src
+cd       paris-src
 install_vofi &&
     install_hypre &&
     install_silo &&
