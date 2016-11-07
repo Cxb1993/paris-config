@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Install paris and third party libraries
+# Install paris and third party libraries
 
 install_vofi () {
     (
