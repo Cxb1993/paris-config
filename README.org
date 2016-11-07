@@ -1,0 +1,22 @@
+CSE modifications and tools for PARIS Simulator [1]
+
+* darcs-bridge installation
+#+BEGIN_SRC sh
+sudo apt-get install cabal-install
+cabal update
+cabal install darcs
+#+END_SRC
+
+* Vofi library
+#+BEGIN_SRC sh
+v=1.0
+wget http://www.ida.upmc.fr/~zaleski/paris/Vofi-${v}.tar.gz
+tar zxvf Vofi-${v}.tar.gz
+cd Vofi
+./configure --prefix=$HOME/prefix/vofi
+make
+make install
+#+END_SRC
+
+* References
+[1] http://www.ida.upmc.fr/~zaleski/paris/index.html
