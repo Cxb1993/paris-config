@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install paris and third party libraries
+# Install paris and third party libraries on ubuntu
 install_openmpi () {
     (
 	va=2.0 vb=1 # major an minor version
