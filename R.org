@@ -1,10 +1,13 @@
 * open source packages
 PARIS simulator
+
 http://www.ida.upmc.fr/~zaleski/paris/index.html
 
 Gerris Flow Solver
 http://gfs.sourceforge.net/wiki/index.php/Main_Page
+
 http://gerris.dalembert.upmc.fr/gerris/tests/tests/index.html
+
 http://gerris.dalembert.upmc.fr/gerris/examples/examples/index.html
 
 Basilisk
@@ -23,7 +26,9 @@ https://github.com/slitvinov/paris-git
 http://www.ida.upmc.fr/~zaleski/paris/index.html
 
 [[file:README.org]]
+
 [[file:deploy/ubuntu.sh]]
 
 ** configuration
+
 [[file:configs/several.bubbles/input.templ]]
