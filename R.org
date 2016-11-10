@@ -22,8 +22,9 @@ VisIt
 ** install
 - http://www.ida.upmc.fr/~zaleski/paris/index.html
 
-[[file:README.org]]
-[[file:deploy/ubuntu.sh]]
+- [[file:README.org]]
+- [[file:deploy/ubuntu.sh]]
 
 ** configuration
-[[file:configs/several.bubbles/input.templ]]
+- [[file:configs/several.bubbles/input.templ]]
+- [[file:configs/several.bubbles/bubbles/two.inc]]
