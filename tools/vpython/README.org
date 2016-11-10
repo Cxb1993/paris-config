@@ -1,0 +1,10 @@
+A wrapper for python to use with visit
+
+* Installation
+- customize =PYTHON= and =VISIT_LIB_PATH= in =vpython=
+- put =vpython= in the PATH
+- copy to
+  =vcustom.py= to =$HOME/.vpython=
+
+* Usage
+=vpython -i simple.py=
