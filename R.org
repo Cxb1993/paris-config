@@ -1,0 +1,16 @@
+* open source packages
+PARIS simulator
+http://www.ida.upmc.fr/~zaleski/paris/index.html
+
+Gerris Flow Solver
+http://gfs.sourceforge.net/wiki/index.php/Main_Page
+http://gerris.dalembert.upmc.fr/gerris/tests/tests/index.html
+http://gerris.dalembert.upmc.fr/gerris/examples/examples/index.html
+
+Basilisk
+http://basilisk.fr
+
+* simulations with paris
+https://transfer.sh/xqkvx/blue.mpg
+
+

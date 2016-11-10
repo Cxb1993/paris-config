@@ -1,26 +1,5 @@
 CSE modifications and tools for PARIS Simulator [1]
 
-* Exporting to git
-Paris uses darcs as a verstion control system. We "bridge" it to git
-https://github.com/slitvinov/paris-git
-** install darcs
-#+BEGIN_SRC sh
-sudo apt-get install cabal-install
-sudo apt-get install libcurl4-openssl-dev
-cabal install darcs
-#+END_SRC
-
-** incremental export
-[[http://darcs.net/Using/Convert]]
-#+BEGIN_SRC sh
-darcs get http://www.ida.upmc.fr/~zaleski/darcs/paris-devel
-cd paris-devel
-git init ../paris-git
-touch ../paris-git/git.marks
-darcs convert export --read-marks darcs.marks --write-marks darcs.marks \
-   | (cd ../paris-git && git fast-import --import-marks=git.marks --export-marks=git.marks)
-#+END_SRC
-
 * Vofi library
 #+BEGIN_SRC sh
 v=1.0
