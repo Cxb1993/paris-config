@@ -16,6 +16,9 @@ https://wci.llnl.gov/codes/visit
 * simulations with paris
 https://transfer.sh/xqkvx/blue.mpg
 
+** git mirros of the repo
+https://github.com/slitvinov/paris-git
+
 ** install
 http://www.ida.upmc.fr/~zaleski/paris/index.html
 
