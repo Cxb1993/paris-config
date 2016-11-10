@@ -51,7 +51,7 @@ install_silo () {
 }
 
 install_paris () {
-    # git clone git://github.com/slitvinov/paris-git --branch cse
+    git clone git://github.com/slitvinov/paris-git --branch cse
     cd paris-git
 
     mkdir -p $PREFIX/paris/bin
