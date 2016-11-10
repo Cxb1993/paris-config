@@ -1,7 +1,7 @@
-CSE modifications and tools for PARIS Simulator [1]
+CSE modifications and tools for PARIS Simulator [fn:1]
 
 * Setup
-Requires open-mpi [2] or mpich [3] fortran compiler
+Requires open-mpi [fn:2] or mpich [fn:3] fortran compiler
 
 #+BEGIN_SRC sh
 git clone https://github.com/slitvinov/paris-config
@@ -11,9 +11,13 @@ cd configs/one.bubble
 PATH=$HOME/paris-deploy/prefix/paris/bin/:$PATH sh run.sh
 #+END_SRC
 
-Open file =configs/one.bubble/multi00000.root= in visit
+Open file =configs/one.bubble/multi00000.root= in visit [fn:4]
 
-* References
-[1] http://www.ida.upmc.fr/~zaleski/paris/index.html
-[2] https://www.open-mpi.org
-[3] http://www.mpich.org
+* Footnotes
+[fn:1] http://www.ida.upmc.fr/~zaleski/paris/index.html
+[fn:2] https://www.open-mpi.org
+[fn:3] http://www.mpich.org
+[fn:4] https://wci.llnl.gov/codes/visit
+
+
+

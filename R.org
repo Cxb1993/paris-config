@@ -1,7 +1,4 @@
 * open source packages
-PARIS simulator
-- http://www.ida.upmc.fr/~zaleski/paris/index.html
-
 Gerris Flow Solver
 - http://gfs.sourceforge.net/wiki/index.php/Main_Page
 - http://gerris.dalembert.upmc.fr/gerris/tests/tests/index.html
@@ -10,17 +7,20 @@ Gerris Flow Solver
 Basilisk
 - http://basilisk.fr
 
+PARIS simulator
+- http://www.ida.upmc.fr/~zaleski/paris/index.html
+
 VisIt
 - https://wci.llnl.gov/codes/visit
 
 * simulations with paris
 - https://transfer.sh/xqkvx/blue.mpg
 
-** git mirros of the repo
-- https://github.com/slitvinov/paris-git
-
 ** install
 - http://www.ida.upmc.fr/~zaleski/paris/index.html
+
+** git mirros of the repo
+- https://github.com/slitvinov/paris-git
 
 - [[file:README.org]]
 - [[file:deploy/ubuntu.sh]]
