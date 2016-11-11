@@ -3,11 +3,15 @@ ROOT=$HOME/paris-deploy # where to install paris and third party
 PREFIX=$ROOT/prefix
 SRC=$ROOT/src
 
-paris_env () { # set env on ubuntu
-    export PATH=$PATH:$PREFIX/bin
+env_paris () { # set env on ubuntu
+    opath=$PREFIX # save an old path
+    PATH=$PREFIX/paris/bin:$PATH
+    PATH=$PREFIX/openmpi/bin:$PATH
+    export PATH
 }
 
 install_openmpi () {
+    force_cd "$SRC"
     va=2.0 vb=1 # major an minor version
     wget https://www.open-mpi.org/software/ompi/v${va}/downloads/openmpi-${va}.${vb}.tar.gz
     tar zxvf openmpi-${va}.${vb}.tar.gz
@@ -18,6 +22,7 @@ install_openmpi () {
 }
 
 install_vofi () {
+    force_cd "$SRC"
     v=1.0
     wget http://www.ida.upmc.fr/~zaleski/paris/Vofi-${v}.tar.gz
     tar zxvf Vofi-${v}.tar.gz
@@ -28,6 +33,7 @@ install_vofi () {
 }
 
 install_hypre () {
+    force_cd "$SRC"
     v=2.11.1
     wget http://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/download/hypre-${v}.tar.gz
     tar zxvf hypre-${v}.tar.gz
@@ -38,6 +44,7 @@ install_hypre () {
 }
 
 install_silo () {
+    force_cd "$SRC"
     v=4.10.2
     wget https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-${v}/silo-${v}.tar.gz
     tar zxvf silo-${v}.tar.gz
@@ -48,7 +55,8 @@ install_silo () {
 }
 
 make_paris() {
-    make FLAGS="-O3 -cpp  -fimplicit-none" \
+    mkdir -p $PREFIX/paris/bin
+    make FLAGS="-O0 -g -cpp  -fimplicit-none" \
 	 HAVE_VOFI=1 HAVE_SILO=1 \
 	 SILO_DIR=$PREFIX/silo \
 	 HYPRE_DIR=$PREFIX/hypre/lib \
@@ -57,12 +65,27 @@ make_paris() {
 }
 
 install_paris () {
+    force_cd "$SRC"
     git clone git://github.com/slitvinov/paris-git --branch cse
     cd paris-git
 
     mkdir -p $PREFIX/paris/bin
     make_paris
+    cd util
+    make_paris
+    cp rockread $PREFIX/paris/bin
 }
+
+test_paris () {
+    force_cd "$SRC"
+    cd paris-git
+
+    touch Tests/BubbleLPP/DONOTRUN
+
+    mkdir -p $PREFIX/paris/bin
+    make_paris test
+}
+
 
 install_tools () {
     git clone git@gitlab.ethz.ch:mavt-cse/paris-cse.git
