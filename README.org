@@ -2,6 +2,7 @@ CSE modifications and tools for PARIS Simulator [fn:1]
 
 * Setup
 Requires open-mpi [fn:2] or mpich [fn:3] fortran, c, and c++ compilers
+Test cases require gnuplot [fn:5]
 
 #+BEGIN_SRC sh
 git clone https://github.com/slitvinov/paris-config
@@ -18,6 +19,4 @@ Open file =configs/one.bubble/multi00000.root= in visit [fn:4]
 [fn:2] https://www.open-mpi.org
 [fn:3] http://www.mpich.org
 [fn:4] https://wci.llnl.gov/codes/visit
-
-
-
+[fn:5] http://gnuplot.sourceforge.net
