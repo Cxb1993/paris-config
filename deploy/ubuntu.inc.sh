@@ -88,7 +88,7 @@ test_paris () {
 
 
 install_tools () {
-    git clone git@gitlab.ethz.ch:mavt-cse/paris-cse.git
+    git clone https://github.com/slitvinov/paris-git paris-cse
     cd paris-cse
     
     (cd tools/wparis ; ./install.sh)
