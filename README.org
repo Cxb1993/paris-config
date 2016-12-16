@@ -1,7 +1,7 @@
 CSE modifications and tools for PARIS Simulator [fn:1]
 
 * Setup
-Requires fortran, C, and C++ compilers. Test cases require gnuplot [fn:1] and visit [fn:2]
+Requires fortran, C, and C++ compilers. Test cases require gnuplot [fn:2] and visit [fn:3]
 
 #+BEGIN_SRC sh
 git clone https://github.com/slitvinov/paris-config
