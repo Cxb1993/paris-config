@@ -4,7 +4,7 @@ PREFIX=$ROOT/prefix
 SRC=$ROOT/src
 
 env_paris () { # set env on ubuntu
-    opath=$PREFIX # save an old path
+    opath=$PATH # save an old path
     PATH=$PREFIX/paris/bin:$PATH
     PATH=$PREFIX/openmpi/bin:$PATH
     export PATH
@@ -89,9 +89,6 @@ test_paris () {
 
 
 install_tools () {
-    git clone https://github.com/slitvinov/paris-git paris-cse
-    cd paris-cse
-    
     (cd tools/wparis ; ./install.sh)
     (cd tools/bubbles; ./install.sh)
 }
