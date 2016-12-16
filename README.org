@@ -1,7 +1,7 @@
 CSE modifications and tools for PARIS Simulator [fn:1]
 
 * Setup
-Requires fortran, c, and c++ compilers. Test cases require gnuplot [fn:2]
+Requires fortran, C, and C++ compilers. Test cases require gnuplot [fn:1] and visit [fn:2]
 
 #+BEGIN_SRC sh
 git clone https://github.com/slitvinov/paris-config
@@ -13,5 +13,5 @@ To customize deploy script comment/uncomment lines in [[file:deploy/ubuntu.sh]] 
 
 * Footnotes
 - [fn:1] http://www.ida.upmc.fr/~zaleski/paris/index.html
-- [fn:2] https://wci.llnl.gov/codes/visit
-- [fn:3] http://gnuplot.sourceforge.net
+- [fn:2] http://gnuplot.sourceforge.net
+- [fn:3] https://wci.llnl.gov/codes/visit
