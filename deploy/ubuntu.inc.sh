@@ -92,8 +92,3 @@ install_tools () {
     (cd tools/wparis ; ./install.sh)
     (cd tools/bubbles; ./install.sh)
 }
-
-force_cd () { # create a directory before `cd'
-    mkdir -p "$1"
-    cd       "$1"
-}
