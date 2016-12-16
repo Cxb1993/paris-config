@@ -66,6 +66,7 @@ make_paris() {
 
 install_paris () {
     force_cd "$SRC"
+    check_dir paris-git
     git clone git://github.com/slitvinov/paris-git --branch cse
     cd paris-git
 

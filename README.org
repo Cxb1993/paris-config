@@ -1,8 +1,7 @@
 CSE modifications and tools for PARIS Simulator [fn:1]
 
 * Setup
-Requires open-mpi [fn:2] or mpich [fn:3] fortran, c, and c++ compilers
-Test cases require gnuplot [fn:5]
+Requires fortran, c, and c++ compilers. Test cases require gnuplot [fn:2]
 
 #+BEGIN_SRC sh
 git clone https://github.com/slitvinov/paris-config
@@ -10,9 +9,9 @@ cd paris-config
 deploy/ubuntu.sh
 #+END_SRC
 
+To customize deploy script comment/uncomment lines in [[file:deploy/ubuntu.sh]] and rerun =deploy/ubuntu.sh=
+
 * Footnotes
-[fn:1] http://www.ida.upmc.fr/~zaleski/paris/index.html
-[fn:2] https://www.open-mpi.org
-[fn:3] http://www.mpich.org
-[fn:4] https://wci.llnl.gov/codes/visit
-[fn:5] http://gnuplot.sourceforge.net
+- [fn:1] http://www.ida.upmc.fr/~zaleski/paris/index.html
+- [fn:2] https://wci.llnl.gov/codes/visit
+- [fn:3] http://gnuplot.sourceforge.net
