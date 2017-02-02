@@ -50,10 +50,6 @@ function includep(line) { # is it a #include "FILE"? Sets `INC_FILE'
     return 0
 }
 
-function process() {
-
-}
-
 function write() {
     print "(wparis) creating input" | stderr
     print  f > "input"
@@ -67,7 +63,6 @@ BEGIN {
     templ = ARGV[2]
 
     f = read(templ)
-    process()
     write()
 
     cmd = sprintf("mpirun -np %d paris", np)
