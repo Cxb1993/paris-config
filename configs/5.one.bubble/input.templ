@@ -23,7 +23,7 @@ GetPropertiesFromFront = F ! T: uses Front-Tracking data to compute mu, rho and 
 ZeroReynolds = F
 Implicit  = F
 hypre     = F       ! T: uses hyprepackage, F: uses SOR solver
-restart   = T       ! T: start the domain from a previous simulation
+restart   = F       ! T: start the domain from a previous simulation
 restartFront = F    ! T: start the frontfrom  a previous simulation
 restartAverages = F
 nBackup  = 20000      ! number of time steps between  backups are kept.
@@ -51,7 +51,7 @@ U_init   = 0.d0
 
 termout  = 10000
 ICOut    = T            ! output initial condition
-NOUT     = 10000          ! write the solution to file every nout time steps
+NOUT     = 100000       ! write the solution to file every nout time steps
 output_format = 2       ! 1:tecplot 2:vtk 5:silo
 out_path = 'out'        ! name of the output directory
 
@@ -64,9 +64,9 @@ npy      = 2
 npz      = 2
 		   ! number of processors in x,y,z direction
 
-Nx      = 50
-Ny      = 50
-Nz      = 50
+Nx      = 100
+Ny      = 100
+Nz      = 100
 Ng      = 2
 		   ! grid size in x,y,z direction and number of ghost cells
 
