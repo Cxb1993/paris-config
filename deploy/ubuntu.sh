@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -eu
-. deploy/utils.sh
 . deploy/ubuntu.inc.sh
 
 # setup environment for paris (see deploy/ubuntu.inc.sh)
@@ -14,7 +13,9 @@ env_paris
 (install_silo)
 
 # Install paris
-(install_paris)
+(fetch_paris)
+(build_paris)
+#(clean_paris)
 
 # Install CSE tools
 (install_tools)

@@ -3,6 +3,8 @@ ROOT=$HOME/paris-deploy # where to install paris and third party
 PREFIX=$ROOT/prefix
 SRC=$ROOT/src
 
+. deploy/utils.sh
+
 env_paris () { # set env on ubuntu
     opath=$PATH # save an old path
     PATH=$PREFIX/paris/bin:$PATH
@@ -56,7 +58,7 @@ install_silo () {
 
 make_paris() {
     mkdir -p $PREFIX/paris/bin
-    make FLAGS="-O0 -g -cpp  -fimplicit-none" \
+    make FLAGS="-O3 -g -cpp  -fimplicit-none" \
 	 HAVE_VOFI=1 HAVE_SILO=1 \
 	 SILO_DIR=$PREFIX/silo \
 	 HYPRE_DIR=$PREFIX/hypre/lib \
@@ -64,12 +66,21 @@ make_paris() {
 	 BINDIR=$PREFIX/paris/bin "$@"
 }
 
-install_paris () {
+clean_paris () {
+    force_cd "$SRC"
+    cd paris-git
+    make_paris clean
+}
+
+fetch_paris () {
     force_cd "$SRC"
     check_dir paris-git
     git clone git://github.com/slitvinov/paris-git --branch cse
-    cd paris-git
+}
 
+build_paris() {
+    force_cd "$SRC"
+    cd paris-git
     mkdir -p $PREFIX/paris/bin
     make_paris
     cd util
