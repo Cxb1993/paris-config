@@ -2,6 +2,7 @@
 
 check_dir () { # fail if directory exists
     if test ! -d "$1"; then return; fi
+    echo "(ERROR) pwd: " `pwd`
     echo "(ERROR) directory \"$1\" already exist" 1>&2
 }
 
