@@ -12,7 +12,7 @@ env_paris () { # set env on ubuntu
     export PATH
 }
 
-install_openmpi () {
+install_openmpi () (
     force_cd "$SRC"
     va=2.0 vb=1 # major an minor version
     wget https://www.open-mpi.org/software/ompi/v${va}/downloads/openmpi-${va}.${vb}.tar.gz
@@ -21,9 +21,9 @@ install_openmpi () {
     ./configure --prefix=$PREFIX/openmpi --enable-mpi-fortran
     make
     make install
-}
+)
 
-install_vofi () {
+install_vofi () (
     force_cd "$SRC"
     v=1.0
     wget http://www.ida.upmc.fr/~zaleski/paris/Vofi-${v}.tar.gz
@@ -32,9 +32,9 @@ install_vofi () {
     ./configure --prefix=$PREFIX/vofi
     make
     make install
-}
+)
 
-install_hypre () {
+install_hypre () (
     force_cd "$SRC"
     v=2.11.1
     wget http://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/download/hypre-${v}.tar.gz
@@ -43,9 +43,9 @@ install_hypre () {
     ./configure --prefix=$PREFIX/hypre
     make
     make install
-}
+)
 
-install_silo () {
+install_silo () (
     force_cd "$SRC"
     v=4.10.2
     wget https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-${v}/silo-${v}.tar.gz
@@ -54,9 +54,9 @@ install_silo () {
     ./configure --prefix=$PREFIX/silo
     make
     make install
-}
+)
 
-make_paris() {
+make_paris() (
     mkdir -p $PREFIX/paris/bin
     make FLAGS="-O3 -g -cpp  -fimplicit-none" \
 	 HAVE_VOFI=1 HAVE_SILO=1 \
@@ -64,21 +64,21 @@ make_paris() {
 	 HYPRE_DIR=$PREFIX/hypre/lib \
 	 VOFI_DIR=$PREFIX/vofi/lib \
 	 BINDIR=$PREFIX/paris/bin "$@"
-}
+)
 
-clean_paris () {
+clean_paris () (
     force_cd "$SRC"
     cd paris-git
     make_paris clean
-}
+)
 
-fetch_paris () {
+fetch_paris () (
     force_cd "$SRC"
     check_dir paris-git
     git clone git://github.com/slitvinov/paris-git --branch cse
-}
+)
 
-build_paris() {
+build_paris() (
     force_cd "$SRC"
     cd paris-git
     mkdir -p $PREFIX/paris/bin
@@ -86,9 +86,9 @@ build_paris() {
     cd util
     make_paris
     cp rockread $PREFIX/paris/bin
-}
+)
 
-test_paris () {
+test_paris () (
     force_cd "$SRC"
     cd paris-git
 
@@ -96,7 +96,7 @@ test_paris () {
 
     mkdir -p $PREFIX/paris/bin
     make_paris test
-}
+)
 
 
 install_tools () {
