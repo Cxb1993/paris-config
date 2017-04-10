@@ -8,6 +8,8 @@
 # wparis <number of processors> <template file>
 
 function init() {
+    fmt_run = "mpiexec -np %d paris" # how to run paris (% is a number
+				     # of processors)
     stderr = "cat 1>&2"
 }
 
@@ -16,19 +18,16 @@ function usage() {
 	stderr
 }
 
-function die () {
-    usage()
-    exit(2)
-}
+function msg(s)  { printf "(wparis) %s\n", s | stderr }
+function die (s) { msg(s); usage(); exit(1) }
 
 function sys(e) {
-    printf "(wparis) %s\n", e | stderr
+    msg(e)
     return system(e)
 }
 
 function read(f,   sep, line, cont) { # return a content of file as a
-				 # string
-    sep = ""
+				      # string
     while (getline line < f > 0) {
 	if (includep(line)) line = read(INC_FILE)
 	cont = cont sep line
@@ -38,33 +37,38 @@ function read(f,   sep, line, cont) { # return a content of file as a
 }
 
 function includep(line) { # is it a #include "FILE"? Sets `INC_FILE'
-    sub(line, /!.*/, "") # skip comments
-    if (line ~ /^#include /) { # generate file name
-	sub(/^#include /, "", line) # cut #include
+    sub(line, /!.*/, "") # skip fortran comments
+    if (line ~ /^#include/) { # generate file name
+	sub(/^#include/, "", line) # cut #include
 	sub(/^[\t ]*"/, "", line)   # cut spaces befor "
 	sub(/"[\t ]*/, "", line)    # cut spaces  after "
 	INC_FILE = line
-	print "(wparis) include " INC_FILE | stderr
+	msg("include " INC_FILE)
 	return 1
     }
     return 0
 }
 
 function write() {
-    print "(wparis) creating input" | stderr
+    msg("creating input")
     print  f > "input"
+}
+
+function req_int(n) { # should be an integer?
+    if (n ~ /^[0-9]+$/) return
+    die("expecting an integer")
 }
 
 BEGIN {
     init()
-    if (ARGC != 3) die()
+    if (ARGC != 3) die("takes two arguments")
 
-    np = ARGV[1]
+    np = ARGV[1]; req_int(np)
     templ = ARGV[2]
 
     f = read(templ)
     write()
 
-    cmd = sprintf("mpirun -np %d paris", np)
+    cmd = sprintf(fmt_run, np)
     sys(cmd)
 }
