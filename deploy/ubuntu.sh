@@ -1,6 +1,13 @@
 #!/bin/bash
 
 set -eu
+
+ROOT=$HOME/paris-deploy # where to install paris and third party
+			# libraries
+PREFIX=$ROOT/prefix
+SRC=$ROOT/src
+MAKE_FLAGS=-j4         # build in parallel
+
 . deploy/ubuntu.inc.sh
 
 # setup environment for paris (see deploy/ubuntu.inc.sh)
