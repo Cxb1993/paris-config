@@ -7,6 +7,10 @@
 # Usage:
 # wparis <number of processors> <template file>
 
+# TEST: wparis.t0
+# ./wparis -v dry_run=1 3 test_data/input.one.w
+# cp input input.out.f90
+
 function init() {
     fmt_run = "mpiexec -np %d paris" # how to run paris (% is a number
 				     # of processors)
@@ -70,5 +74,5 @@ BEGIN {
     write()
 
     cmd = sprintf(fmt_run, np)
-    sys(cmd)
+    if (!dry_run) sys(cmd)
 }
