@@ -6,13 +6,13 @@ https://github.com/slitvinov/paris-git
 ** install darcs
 #+BEGIN_SRC sh
 sudo apt-get install cabal-install
-sudo apt-get install libcurl4-openssl-dev
 cabal install darcs
 #+END_SRC
 
 ** incremental export
 [[http://darcs.net/Using/Convert]]
 #+BEGIN_SRC sh
+export PATH=$HOME/.cabal/bin:$PATH
 darcs get http://www.ida.upmc.fr/~zaleski/darcs/paris-devel
 cd paris-devel
 git init ../paris-git
