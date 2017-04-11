@@ -42,7 +42,7 @@ function conf_reg(name_idx, val) { # register `val' at CONF
     CONF[name_idx] = val
 }
 
-function conf0(l_org,  ob, cb, idx, c, i, aval, name, val) { # parse a line
+function conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val) { # parse a line
     # `l_org' has the form:
     # bl name bl [(] idx [)] bl = bl ['] val0 [bl val1] [']
     # where  bl: blanks, name: fortran identifier
@@ -60,18 +60,19 @@ function conf0(l_org,  ob, cb, idx, c, i, aval, name, val) { # parse a line
     }
     nxt("="); nxt(BL)
 
-    for (;;) { # parse x = 1 2 3 4
+    for (i = 0;;) { # parse x = 1 2 3 4
 	c = nxt(NBL)
 	if (zerop(c)) break;
-	aval[++i] = c
+	aval[i++] = c
 	nxt(BL)
     }
-    if (i > 1) {
+    n = i
+    if (n > 1) {
 	IS_ARRAY = 1
-	for (i in aval) conf_reg(name SUBSEP i - 1,   val_and_type(aval[i]))
+	for (i = 0; i < n; i++) conf_reg(name SUBSEP i,   val_and_type(aval[i]))
     } else {
-	if (zerop(idx)) conf_reg(name,            val_and_type(aval[1]))
-	else            conf_reg(name SUBSEP idx, val_and_type(aval[1]))
+	if (zerop(idx)) conf_reg(name,            val_and_type(aval[0]))
+	else            conf_reg(name SUBSEP idx, val_and_type(aval[0]))
     }
 
     ARRAY[name] = IS_ARRAY

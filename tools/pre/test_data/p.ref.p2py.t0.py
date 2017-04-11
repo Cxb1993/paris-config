@@ -1,3 +1,4 @@
+TWOPHASE = True
 DoVOF = True
 DoFront = False
 GetPropertiesFromFront = False
