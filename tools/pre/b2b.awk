@@ -3,8 +3,11 @@
 # Read and write backup file
 # See `backup_VOF_write' and `backup_VOF_read' functions in paris-git/vofmodules.f90
 
+# TEST: b2b.t0
+# ./b2b.awk -dpreved test_data/backup_00000 | head -n 100 > backup.out.txt
+
 function read_header(f,   q) {
-    getline < f # header
+    getline < f
     q = 0
     time = $(++q); itimestep = $(++q)
     imin = $(++q); imax = $(++q); jmin = $(++q)
@@ -32,6 +35,8 @@ function sf(f,  d, w, base, digits, ch) { # [s]et [f]ormat; format like fortran!
     # w: the number of characters to use
     # E: the number of digits in the exponent
     # base: base of the format `I' or `es'
+
+    # sets FMT (printf format string) and E
 
     digits = "[0-9]*"
     ch = "[a-zA-Z]+" # characters
