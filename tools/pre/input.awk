@@ -24,17 +24,17 @@ function zerop(l)     { return length(l) == 0 }
 function unblank(l)   { gsub(BL, "", l); return l }
 function comma2sep(l) { gsub(/,/, SUBSEP, l); return l}
 
-function nxt(r,   tag) {
+function nxt(r,   tok) {
     match(LINE, "^" r)
-    tag = substr(LINE, 1, RLENGTH)
+    tok = substr(LINE, 1, RLENGTH)
     LINE   = substr(LINE, 1 + RLENGTH)
-    return tag
+    return tok
 }
 
 function val_and_type(e) { # return value and set type
     if (e == "T" || e == "F") {IS_LOGICAL = 1;                                     return e}
     if (e ~ STRING)           {IS_STRING  = 1; sub(/^'/, "", e); sub(/'$/, "", e); return e}
-    return e
+    return e # :TODO: check if it a number
 }
 
 function conf_reg(name_idx, val) { # register `val' at CONF
@@ -42,7 +42,7 @@ function conf_reg(name_idx, val) { # register `val' at CONF
     CONF[name_idx] = val
 }
 
-function conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val) { # parse a line
+function conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val, tok) { # parse a line
     # `l_org' has the form:
     # bl name bl [(] idx [)] bl = bl ['] val0 [bl val1] [']
     # where  bl: blanks, name: fortran identifier
@@ -51,14 +51,20 @@ function conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val) { # parse a line
     LINE = l_org
 
     nxt(BL); name = nxt(NAME); nxt(BL)
+    if (zerop(name)) conf_die("wrong identifier")
+    
     ob = "\\("; cb = "\\)"
     if (!zerop(nxt(ob))) { # parse x(1,2) = 42
 	IS_ARRAY = 1
 	idx = nxt("[^)]*") # array indexes
 	idx = unblank(idx); idx = comma2sep(idx)
-	nxt(cb); nxt(BL)
+	if (zerop(idx)) conf_die("emptyp indexes")
+	tok = nxt(cb);
+	if (zerop(tok)) conf_die("missing )")
+	nxt(BL)
     }
-    nxt("="); nxt(BL)
+    tok = nxt("="); nxt(BL)
+    if (zerop(tok)) conf_die("missing =")
 
     for (i = 0;;) { # parse x = 1 2 3 4
 	c = nxt(NBL)
@@ -66,7 +72,7 @@ function conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val) { # parse a line
 	aval[i++] = c
 	nxt(BL)
     }
-    n = i
+    n = i; if (n == 0) conf_die("missing RHS")
     if (n > 1) {
 	IS_ARRAY = 1
 	for (i = 0; i < n; i++) conf_reg(name SUBSEP i,   val_and_type(aval[i]))
@@ -82,8 +88,9 @@ function conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val) { # parse a line
 		       "number"
 }
 
-function conf(f,  l) {
+function conf(f,  l, i) {
     while (getline l < f > 0) {
+	CNT = f ":" ++i # context for error reporting
 	l = skip_comm(l)
 	l = skip_extra(l)
 	if (emptyp(l)) continue
@@ -91,3 +98,6 @@ function conf(f,  l) {
     }
     close(f)
 }
+
+function conf_die (s) { printf "%s: error: %s\n", CNT, s | "cat 1>&2"; exit 1 }
+function conf_warn(s) { printf "%s: warning: %s\n", CNT, s | "cat 1>&2"; exit 1 }
