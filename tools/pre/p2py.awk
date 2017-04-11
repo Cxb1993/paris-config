@@ -4,9 +4,13 @@
 
 # TEST: p2py.t0
 # ./p2py.awk -f input.awk test_data/input > p.out.py
-
+#
 # TEST: p2py.t1
 # ./p2py.awk -f input.awk  test_data/inputvof  > p.out.py
+#
+# error report
+# TEST: p2py.t2
+# ./p2py.awk -f input.awk test_data/inputvof.missing  2> error.out.txt
 
 BEGIN {
     conf_ini()
