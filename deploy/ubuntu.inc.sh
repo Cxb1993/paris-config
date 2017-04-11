@@ -62,6 +62,20 @@ make_paris() (
 	BINDIR=$PREFIX/paris/bin "$@"
 )
 
+rc_paris () { # generate rc file
+    echo "\
+PREFIX=$PREFIX
+export PATH=\$PREFIX/paris/bin:\$PATH
+export PATH=\$PREFIX/openmpi/bin:\$PATH
+export \\
+   HAVE_VOFI=1
+   HAVE_SILO=1
+   SILO_DIR=\$PREFIX/silo
+   HYPRE_DIR=\$PREFIX/hypre/lib
+   VOFI_DIR=\$PREFIX/vofi/lib
+   BINDIR=\$PREFIX/paris/bin"
+}
+
 clean_paris () (
     force_cd "$SRC"
     cd paris-git
