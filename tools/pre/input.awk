@@ -7,13 +7,15 @@ function conf_ini() {
     NBL  = "[^\\t ]*" # non-blank
     NAME = "[a-zA-Z][_a-zA-Z0-9]*" # fortran name
 
+    STRING = "'[^']*'" # escape `'' ? :TODO:
+
     I = 0 # index in ORD
 }
 
 function skip_comm(l)  { sub(/!.*/, "", l); return l }
 function skip_extra(l) { # skip extra lines
-    sub("^" BL "&PARAMETERS" BL, "", l)
-    sub("^" BL "/" BL, "", l) # there is a line with only '/'
+    sub("^" BL "&" NAME BL, "", l) # skip group names :TODO:
+    sub("^" BL "/" BL, "", l) # skip end of group names '/'
     return l
 }
 
@@ -29,8 +31,9 @@ function nxt(r,   tag) {
     return tag
 }
 
-function num_or_logical(e) {
-    if (e == "T" || e == "F") IS_LOGICAL = 1
+function val_and_type(e) { # return value and set type
+    if (e == "T" || e == "F") {IS_LOGICAL = 1;                                     return e}
+    if (e ~ STRING)           {IS_STRING  = 1; sub(/^'/, "", e); sub(/'$/, "", e); return e}
     return e
 }
 
@@ -57,22 +60,18 @@ function conf0(l_org,  ob, cb, idx, c, i, aval, name, val) { # parse a line
     }
     nxt("="); nxt(BL)
 
-    IS_STRING = !zerop(nxt("'"))
-    if (IS_STRING) conf_reg(name, nxt("[^']*"))
-    else {
-	for (;;) { # parse x = 1 2 3 4
-	    c = nxt(NBL)
-	    if (zerop(c)) break;
-	    aval[++i] = c
-	    nxt(BL)
-	}
-	if (i > 1) {
-	    IS_ARRAY = 1
-	    for (i in aval) conf_reg(name SUBSEP i,   num_or_logical(aval[i]))
-	} else {
-	    if (zerop(idx)) conf_reg(name,            num_or_logical(aval[1]))
-	    else            conf_reg(name SUBSEP idx, num_or_logical(aval[1]))
-	}
+    for (;;) { # parse x = 1 2 3 4
+	c = nxt(NBL)
+	if (zerop(c)) break;
+	aval[++i] = c
+	nxt(BL)
+    }
+    if (i > 1) {
+	IS_ARRAY = 1
+	for (i in aval) conf_reg(name SUBSEP i - 1,   val_and_type(aval[i]))
+    } else {
+	if (zerop(idx)) conf_reg(name,            val_and_type(aval[1]))
+	else            conf_reg(name SUBSEP idx, val_and_type(aval[1]))
     }
 
     ARRAY[name] = IS_ARRAY
