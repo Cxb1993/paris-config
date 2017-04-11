@@ -2,7 +2,8 @@
 
 # Convert paris config to python code (loadable with `execfile' or `import')
 
-# TEST: p2py
+# TEST: p2py.t0
+# ./p2py.awk -f input.awk test_data/input > p.out.py
 
 BEGIN {
     conf_ini()
