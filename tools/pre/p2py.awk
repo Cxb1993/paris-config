@@ -14,7 +14,7 @@
 
 BEGIN {
     conf_ini()
-    conf(ARGV[1])
+    for (i = 1; i < ARGC; i++) conf(ARGV[i])
 
     for (i = 0; i in ORD; i++) {
 	name_idx = ORD[i]

@@ -38,6 +38,7 @@ function val_and_type(e) { # return value and set type
 }
 
 function conf_reg(name_idx, val) { # register `val' at CONF
+    if (name_idx in CONF) conf_die("seen " name_idx " before")
     ORD[I++] = name_idx
     CONF[name_idx] = val
 }
