@@ -26,9 +26,9 @@ hypre     = F       ! T: uses hyprepackage, F: uses SOR solver
 restart   = F       ! T: start the domain from a previous simulation
 restartFront = F    ! T: start the frontfrom  a previous simulation
 restartAverages = F
-nBackup  = 20000      ! number of time steps between  backups are kept.
+nBackup  = 1        ! number of time steps between  backups are kept.
 
-NSTEP   = 10000000 ! maximum number of time steps
+NSTEP   = 1       ! maximum number of time steps
 EndTime = 1.0      ! When to stop simulation
 
 MaxDt   = 1e-8     ! maximum size of time step
@@ -52,7 +52,7 @@ U_init   = 0.d0
 termout  = 50000
 ICOut    = T            ! output initial condition
 NOUT     = 50000          ! write the solution to file every nout time steps
-output_format = 2       ! 1:tecplot 2:vtk 5:silo
+output_format = 5       ! 1:tecplot 2:vtk 5:silo
 out_path = 'out'        ! name of the output directory
 
 nstats   = 20           ! number of time steps between flow statistics calculations
@@ -64,9 +64,9 @@ npy      = 2
 npz      = 2
 		   ! number of processors in x,y,z direction
 
-Nx      = 50
-Ny      = 50
-Nz      = 50
+Nx      = 20
+Ny      = 20
+Nz      = 20
 Ng      = 2
 		   ! grid size in x,y,z direction and number of ghost cells
 
