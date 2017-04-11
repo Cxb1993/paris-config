@@ -6,16 +6,12 @@ BEGIN {
     conf_ini()
     conf(ARGV[1])
 
-    for (i in CONF) {
-	n = split(i, a, SUBSEP); name = a[1]
+    for (idx in CONF) {
+	n = split(idx, a, SUBSEP); name = a[1]
 	
-	type = TYPE[name]
-	if (type == "number")
-	    print name, "=", CONF[name]
-	else if (type == "string")
-	    print name, "=", "'" type "'"
-	else if (type == "array") {
-	    # do nothing
+	type = TYPE[name]; val = CONF[idx]; array = ARRAY[name]
+	if (array) {
+	    print type, name, "=", val
 	}
     }
 }

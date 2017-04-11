@@ -27,12 +27,19 @@ function nxt(r,   tag) {
     return tag
 }
 
-function conf0(l_org,  ob, cb, idx, c, i, aval, name, val, is_string, is_array) { # parse a line
+function num_or_logical(e) {
+    if (e == "T" || e == "F") is_logical = 1
+    return e
+}
+
+function conf0(l_org,  ob, cb, idx, c, i, aval, name, val) { # parse a line
     # `l_org' has the form:
     # bl name bl [(] idx [)] bl = bl ['] val0 [bl val1] [']
     # where  bl: blanks, name: fortran identifier
 
+    is_array = is_string = is_logical = 0 # global
     LINE = l_org
+
     nxt(BL); name = nxt(NAME); nxt(BL)
     ob = "\\("; cb = "\\)"
     if (!zerop(nxt(ob))) { # parse x(1,2) = 42
@@ -46,7 +53,7 @@ function conf0(l_org,  ob, cb, idx, c, i, aval, name, val, is_string, is_array) 
     is_string = !zerop(nxt("'"))
     if (is_string) CONF[name] = nxt("[^']*")
     else {
-	for (;;) { # parse also x = 1 2 3 4
+	for (;;) { # parse x = 1 2 3 4
 	    c = nxt(NBL)
 	    if (zerop(c)) break;
 	    aval[++i] = c
@@ -54,17 +61,18 @@ function conf0(l_org,  ob, cb, idx, c, i, aval, name, val, is_string, is_array) 
 	}
 	if (i > 1) {
 	    is_array = 1
-	    for (i in aval) CONF[name, i] = aval[i]
+	    for (i in aval) CONF[name, i] = num_or_logical(aval[i])
 	} else {
-	    if (zerop(idx)) CONF[name]            = aval[1]
-	    else            CONF[name SUBSEP idx] = aval[1]
+	    if (zerop(idx)) CONF[name]            = num_or_logical(aval[1])
+	    else            CONF[name SUBSEP idx] = num_or_logical(aval[1])
 	}
     }
 
+    ARRAY[name] = is_array
     TYPE[name] = \
-	is_array  ?   "array" :
-	is_string ?  "string" :
-		     "number"
+	is_string  ?   "string" :
+	is_logical ?  "logical" :
+		       "number"
 }
 
 function conf(f,  l) {
@@ -76,4 +84,3 @@ function conf(f,  l) {
     }
     close(f)
 }
-
