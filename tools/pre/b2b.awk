@@ -4,7 +4,7 @@
 # See `backup_VOF_write' and `backup_VOF_read' functions in paris-git/vofmodules.f90
 
 # TEST: b2b.t0
-# ./b2b.awk -dpreved test_data/backup_00000 | head -n 100 > backup.out.txt
+# ./b2b.awk test_data/backup_00000 | head -n 100 > backup.out.txt
 
 function read_header(f,   q) {
     getline < f
