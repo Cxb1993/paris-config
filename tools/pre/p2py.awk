@@ -2,6 +2,8 @@
 
 # Convert paris config to python code (loadable with `execfile' or `import')
 
+# TEST: p2py
+
 BEGIN {
     conf_ini()
     conf(ARGV[1])
@@ -60,4 +62,4 @@ function string2py(v)  { return "'" v "'" }
 function idx2py(v,  cnt) { cnt = gsub(SUBSEP, ", ", v); return cnt ? "(" v ")" : v }
 
 function die(s) { msg(s); exit(1) }
-function msg(s) { printf "\n(paris2python.awk) %s\n", s | "cat 1>&2" }
+function msg(s) { printf "\n(p2py.awk) %s\n", s | "cat 1>&2" }
