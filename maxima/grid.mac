@@ -1,0 +1,22 @@
+/* grid
+
+i : "node" grid
+ih: "half" grid
+
+i : x, p, rho, cvof
+ih: u
+
+u(i-1)  p(i)    u(i)   p(i+1)
+-->------x------->------x--
+        x(i)    xh(i)
+*/
+
+xform : 0;
+s : (ih-Ng)/Nx;
+xh: xLength*(xform*s*(1/2-s)*(1-s)+s);
+
+define(xh(ih), xh);
+
+x: 1/2*(xh(i)+xh(i-1));
+x: factor(x);
+define(x(i), x);

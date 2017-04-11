@@ -64,16 +64,16 @@ make_paris() (
 
 rc_paris () { # generate rc file
     echo "\
-PREFIX=$PREFIX
+export PREFIX=$PREFIX
 export PATH=\$PREFIX/paris/bin:\$PATH
 export PATH=\$PREFIX/openmpi/bin:\$PATH
-export \\
-   HAVE_VOFI=1
+p=\"HAVE_VOFI=1
    HAVE_SILO=1
    SILO_DIR=\$PREFIX/silo
    HYPRE_DIR=\$PREFIX/hypre/lib
    VOFI_DIR=\$PREFIX/vofi/lib
-   BINDIR=\$PREFIX/paris/bin"
+   BINDIR=\$PREFIX/paris/bin\"
+d=\"FLAGS=-O0 -g -cpp -fimplicit-none\""
 }
 
 clean_paris () (
