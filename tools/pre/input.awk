@@ -89,7 +89,7 @@ function conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val, tok) { # parse a l
 		       "number"
 }
 
-function conf(f,  l, i) {
+function conf(f,  l, i) { # sets `CONF', `TYPE' and `ARRAY'
     while (getline l < f > 0) {
 	CNT = f ":" ++i # context for error reporting
 	l = skip_comm(l)
