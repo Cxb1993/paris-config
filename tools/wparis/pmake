@@ -1,8 +1,9 @@
 #!/bin/bash
 
+# [p]aris [make]: a make wrapper
+
 err () { printf "pmake: %s\n" "$*" 1>&1; exit 2; }
 
-# make wrapper for paris
 test "$PARIS_PREFIX" || err "PARIS_PREFIX is not set"
 test "$PARIS_BIN"    || err "PARIS_BIN is not set"
 
