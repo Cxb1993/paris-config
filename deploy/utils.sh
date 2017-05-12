@@ -1,15 +1,15 @@
 #!/bin/bash
 
-check_dir () { # fail if directory exists
+check_dir () {
     if test ! -d "$1"; then return; fi
-    echo "(ERROR) pwd: " `pwd`
-    echo "(ERROR) directory \"$1\" already exist" 1>&2
+    msg  "pwd: " `pwd`
+    err  "ERROR: directory \"$1\" already exist"
 }
 
-force_cd () { # create a directory before `cd'
+force_cd () {
     mkdir -p "$1"
     cd       "$1"
 }
 
-msg () { printf '%s: %s\n' "${prog_name--}" "$*" > /dev/stderr; }
+msg () { printf '%s: %s\n' "${prog_name--}" "$*"  1>&2; }
 err () { msg "$@"; exit 2; }
