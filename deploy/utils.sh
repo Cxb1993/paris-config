@@ -10,3 +10,6 @@ force_cd () { # create a directory before `cd'
     mkdir -p "$1"
     cd       "$1"
 }
+
+msg () { printf '%s: %s\n' "${prog_name--}" "$*" > /dev/stderr; }
+err () { msg "$@"; exit 2; }

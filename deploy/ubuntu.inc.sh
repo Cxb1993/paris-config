@@ -1,5 +1,13 @@
 . deploy/utils.sh
 
+set_default () {
+    ROOT=$HOME/paris-deploy # where to install paris and third party
+			# libraries
+    PREFIX=$ROOT/prefix
+    SRC=$ROOT/src
+    MAKE_FLAGS=-j4         # build in parallel
+}
+
 env_paris () { # set env on ubuntu
     opath=$PATH # save an old path
     PATH=$PREFIX/paris/bin:$PATH
@@ -10,45 +18,60 @@ env_paris () { # set env on ubuntu
 install_openmpi () (
     force_cd "$SRC"
     va=2.0 vb=1 # major and minor versions
-    wget https://www.open-mpi.org/software/ompi/v${va}/downloads/openmpi-${va}.${vb}.tar.gz
-    tar zxvf openmpi-${va}.${vb}.tar.gz
+    curl -O -s https://www.open-mpi.org/software/ompi/v${va}/downloads/openmpi-${va}.${vb}.tar.gz
+    tar zxf openmpi-${va}.${vb}.tar.gz
     cd openmpi-${va}.${vb}
-    ./configure --prefix=$PREFIX/openmpi --enable-mpi-fortran --disable-java --disable-dlopen
-    make $MAKE_FLAGS
-    make install
+    msg 'openmpi(src):' `pwd`
+    msg 'openmpi(pre):' "$PREFIX/openmpi"
+    
+    ./configure --prefix=$PREFIX/openmpi --enable-mpi-fortran --disable-java --disable-dlopen > /dev/null
+    make $MAKE_FLAGS                                                                          > make.log
+    make install                                                                              > make.install.log
 )
 
 install_vofi () (
     force_cd "$SRC"
     v=1.0
-    wget http://www.ida.upmc.fr/~zaleski/paris/Vofi-${v}.tar.gz
-    tar zxvf Vofi-${v}.tar.gz
+    curl -s -O http://www.ida.upmc.fr/~zaleski/paris/Vofi-${v}.tar.gz
+    tar zxf Vofi-${v}.tar.gz
     cd Vofi
-    ./configure --prefix=$PREFIX/vofi
-    make # fails in parallel
-    make install
+    msg 'vofi(src):' `pwd`
+    msg 'vofi(pre):' "$PREFIX/vofi"
+    
+    ./configure --prefix="$PREFIX/vofi" > /dev/null 
+    make                                > make.log # fails in parallel
+    make install                        > make.install.log
 )
 
 install_hypre () (
     force_cd "$SRC"
     v=2.11.1
-    wget http://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/download/hypre-${v}.tar.gz
-    tar zxvf hypre-${v}.tar.gz
+    url=http://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/download
+    wget -q    $url/hypre-${v}.tar.gz
+    tar zxf         hypre-${v}.tar.gz
     cd hypre-${v}/src
-    ./configure --prefix=$PREFIX/hypre
-    make $MAKE_FLAGS
-    make install
+    msg 'hypre(src):' `pwd`
+    msg 'hypre(pre):' "$PREFIX/hypre"
+
+    ./configure --prefix=$PREFIX/hypre > /dev/null
+    make $MAKE_FLAGS                   > make.log
+    make install                       > make.install.log
 )
 
 install_silo () (
     force_cd "$SRC"
     v=4.10.2
-    wget https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-${v}/silo-${v}.tar.gz
-    tar zxvf silo-${v}.tar.gz
+    url=https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo
+    curl -s -O $url/silo-${v}/silo-${v}.tar.gz
+    tar zxf silo-${v}.tar.gz
     cd silo-${v}
-    ./configure --prefix=$PREFIX/silo
-    make $MAKE_FLAGS
-    make install
+    
+    msg 'silo(src):' `pwd`
+    msg 'silo(pre):' "$PREFIX/silo"
+    
+    ./configure --prefix=$PREFIX/silo > /dev/null
+    make $MAKE_FLAGS                  > make.log
+    make install                      > make.install.log
 )
 
 make_paris() (
