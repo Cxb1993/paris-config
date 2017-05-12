@@ -55,55 +55,13 @@ install_silo () (
     make install                              > make.install.log
 )
 
-make_paris() (
-    mkdir -p $PREFIX/paris/bin
-    make \
-	FLAGS="-O3 -g -cpp  -fimplicit-none" \
-	HAVE_VOFI=1 HAVE_SILO=1 \
-	SILO_DIR=$PREFIX/silo \
-	HYPRE_DIR=$PREFIX/hypre/lib \
-	VOFI_DIR=$PREFIX/vofi/lib \
-	BINDIR=$PREFIX/paris/bin "$@"
-)
-
-rc_paris () { # generate rc file
-    echo "\
-export PREFIX=$PREFIX
-export PATH=\$PREFIX/paris/bin:\$PATH
-export PATH=\$PREFIX/openmpi/bin:\$PATH
-p=\"HAVE_VOFI=1
-   HAVE_SILO=1
-   SILO_DIR=\$PREFIX/silo
-   HYPRE_DIR=\$PREFIX/hypre/lib
-   VOFI_DIR=\$PREFIX/vofi/lib
-   BINDIR=\$PREFIX/paris/bin\"
-d=\"FLAGS=-O0 -g -cpp -fimplicit-none\""
-}
-
-clean_paris () (
-    force_cd "$TRD"
-    cd paris-git
-    make_paris clean
-)
-
-fetch_paris () (
-    force_cd "$ROOT"
+clone_paris () (
+    force_cd "$PARIS_ROOT"
     check_dir paris
+    msg 'paris(git):' "$PARIS_ROOT/paris"
     git clone git://github.com/slitvinov/paris-git paris
 )
 
-test_paris () (
-    force_cd "$ROOT"
-    cd paris
-
-    touch Tests/BubbleLPP/DONOTRUN
-
-    mkdir -p $PREFIX/paris/bin
-    make_paris test
-)
-
-
 install_tools () {
-    (cd tools/wparis ; ./install.sh)
-    (cd tools/bubbles; ./install.sh)
+    (cd tools/wparis && make install BIN=$PARIS_BIN)
 }

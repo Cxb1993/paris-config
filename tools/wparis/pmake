@@ -1,0 +1,10 @@
+#!/bin/bash
+
+: ${MAKE:=make}
+${MAKE} \
+    HAVE_VOFI=1 HAVE_SILO=1 \
+    SILO_DIR="$PARIS_PREFIX/silo" \
+    HYPRE_DIR="$PARIS_PREFIX/hypre/lib" \
+    VOFI_DIR="$PARIS_PREFIX/vofi/lib" \
+    BINDIR="$PARIS_BIN" \
+    "$@"
