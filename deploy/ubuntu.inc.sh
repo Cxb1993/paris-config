@@ -6,7 +6,7 @@ install_openmpi () (
     cd openmpi-${va}.${vb}
     msg 'openmpi(src):' `pwd`
     msg 'openmpi(pre):' "$PARIS_PREFIX/openmpi"
-    opt=--enable-mpi-fortran --disable-java --disable-dlopen
+    opt="--enable-mpi-fortran --disable-java --disable-dlopen"
     ./configure --prefix="$PARIS_PREFIX/openmpi" $opt > /dev/null
     make -j8                                          > make.log
     make install                                      > make.install.log
