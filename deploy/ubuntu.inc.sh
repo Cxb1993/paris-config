@@ -1,10 +1,10 @@
 . deploy/utils.sh
 
 set_default () {
-    ROOT=$HOME/paris-deploy # where to install paris and third party
-			# libraries
+    ROOT=$HOME/deploy # where to install paris and third party
+		      # libraries
     PREFIX=$ROOT/prefix
-    SRC=$ROOT/src
+    TRD=$ROOT/3rd
     MAKE_FLAGS=-j4         # build in parallel
 }
 
@@ -16,7 +16,7 @@ env_paris () { # set env on ubuntu
 }
 
 install_openmpi () (
-    force_cd "$SRC"
+    force_cd "$TRD"
     va=2.0 vb=1 # major and minor versions
     curl -O -s https://www.open-mpi.org/software/ompi/v${va}/downloads/openmpi-${va}.${vb}.tar.gz
     tar zxf openmpi-${va}.${vb}.tar.gz
@@ -30,7 +30,7 @@ install_openmpi () (
 )
 
 install_vofi () (
-    force_cd "$SRC"
+    force_cd "$TRD"
     v=1.0
     curl -s -O http://www.ida.upmc.fr/~zaleski/paris/Vofi-${v}.tar.gz
     tar zxf Vofi-${v}.tar.gz
@@ -44,7 +44,7 @@ install_vofi () (
 )
 
 install_hypre () (
-    force_cd "$SRC"
+    force_cd "$TRD"
     v=2.11.1
     url=http://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/download
     wget -q    $url/hypre-${v}.tar.gz
@@ -59,7 +59,7 @@ install_hypre () (
 )
 
 install_silo () (
-    force_cd "$SRC"
+    force_cd "$TRD"
     v=4.10.2
     url=https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo
     curl -s -O $url/silo-${v}/silo-${v}.tar.gz
@@ -100,30 +100,20 @@ d=\"FLAGS=-O0 -g -cpp -fimplicit-none\""
 }
 
 clean_paris () (
-    force_cd "$SRC"
+    force_cd "$TRD"
     cd paris-git
     make_paris clean
 )
 
 fetch_paris () (
-    force_cd "$SRC"
-    check_dir paris-git
-    git clone git://github.com/slitvinov/paris-git --branch cse
-)
-
-build_paris() (
-    force_cd "$SRC"
-    cd paris-git
-    mkdir -p $PREFIX/paris/bin
-    make_paris
-    cd util
-    make_paris
-    cp rockread $PREFIX/paris/bin
+    force_cd "$ROOT"
+    check_dir paris
+    git clone git://github.com/slitvinov/paris-git paris
 )
 
 test_paris () (
-    force_cd "$SRC"
-    cd paris-git
+    force_cd "$ROOT"
+    cd paris
 
     touch Tests/BubbleLPP/DONOTRUN
 
