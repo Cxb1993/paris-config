@@ -1,8 +1,10 @@
 install_openmpi () (
     force_cd "$PARIS_ROOT/3rd"
     va=2.0 vb=1 # major and minor versions
-    curl -O -s https://www.open-mpi.org/software/ompi/v${va}/downloads/openmpi-${va}.${vb}.tar.gz
-    tar zxf openmpi-${va}.${vb}.tar.gz
+    d=https://www.open-mpi.org/software/ompi/v${va}/downloads
+    f=openmpi-${va}.${vb}.tar.gz
+    curl -O -s $d/$f
+    tar zxf       $f
     cd openmpi-${va}.${vb}
     msg 'openmpi(src):' `pwd`
     msg 'openmpi(pre):' "$PARIS_PREFIX/openmpi"
@@ -15,8 +17,10 @@ install_openmpi () (
 install_vofi () (
     force_cd "$PARIS_ROOT/3rd"
     v=1.0
-    curl -s -O http://www.ida.upmc.fr/~zaleski/paris/Vofi-${v}.tar.gz
-    tar zxf Vofi-${v}.tar.gz
+    d=http://www.ida.upmc.fr/~zaleski/paris
+    f=Vofi-${v}.tar.gz
+    curl -s -O $d/$f
+    tar zxf       $f
     cd Vofi
     msg 'vofi(src):' `pwd`
     msg 'vofi(pre):' "$PARIS_PREFIX/vofi"
