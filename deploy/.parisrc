@@ -1,0 +1,6 @@
+export PARIS_ROOT=$HOME/deploy
+export PARIS_PREFIX=$PARIS_ROOT/prefix
+export PARIS_BIN=$PARIS_PREFIX/bin
+
+export PATH=$PARIS_BIN:$PATH
+export PATH=$PARIS_PREFIX/openmpi/bin:$PATH

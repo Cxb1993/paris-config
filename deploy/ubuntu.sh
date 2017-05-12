@@ -2,14 +2,9 @@
 
 set -eu
 
-
+. deploy/utils.sh
 . deploy/ubuntu.inc.sh
-
-# set variables ROOT, PREFIX
-set_default
-
-# setup environment for paris (see deploy/ubuntu.inc.sh)
-env_paris
+. deploy/.parisrc
 
 # Installing third party libraries
 install_openmpi

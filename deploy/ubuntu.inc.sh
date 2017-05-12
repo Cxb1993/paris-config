@@ -1,20 +1,3 @@
-. deploy/utils.sh
-
-set_default () {
-    ROOT=$HOME/deploy # where to install paris and third party
-		      # libraries
-    PREFIX=$ROOT/prefix
-    TRD=$ROOT/3rd
-    MAKE_FLAGS=-j4         # build in parallel
-}
-
-env_paris () { # set env on ubuntu
-    opath=$PATH # save an old path
-    PATH=$PREFIX/paris/bin:$PATH
-    PATH=$PREFIX/openmpi/bin:$PATH
-    export PATH
-}
-
 install_openmpi () (
     force_cd "$TRD"
     va=2.0 vb=1 # major and minor versions
