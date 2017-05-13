@@ -43,7 +43,7 @@ function conf_reg(name_idx, val) { # register `val' at CONF
     CONF[name_idx] = val
 }
 
-function conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val, tok) { # parse a line
+function conf_conf0(l_org,  ob, cb, idx, c, i, n, aval, name, val, tok) { # parse a line
     # `l_org' has the form:
     # bl name bl [(] idx [)] bl = bl ['] val0 [bl val1] [']
     # where  bl: blanks, name: fortran identifier
@@ -95,7 +95,7 @@ function conf(f,  l, i) { # sets `CONF', `TYPE' and `ARRAY'
 	l = conf_skip_comm(l)
 	l = conf_skip_extra(l)
 	if (conf_emptyp(l)) continue
-	conf0(l)
+	conf_conf0(l)
     }
     close(f)
 }
