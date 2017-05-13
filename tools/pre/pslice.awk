@@ -69,3 +69,9 @@ function read_data(f,  l, q, k, i, j) {
 function shift(  i) { for (i = 2; i < ARGC; i++) ARGV[i-1] = ARGV[i]; ARGC-- }
 function max(a, b) { return (a > b) ? a : b }
 function min(a, b) { return (a < b) ? a : b }
+
+# TEST: pslice.t0
+# tar zxf zip/np8eq.tar.gz
+# ./pslice.awk -f input.awk \
+#   test_data/np8eq/input test_data/np8eq/backup_0000[0-7] > \
+#   p.out.txt
