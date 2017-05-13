@@ -22,16 +22,16 @@ function read(f,  l, q, k, i, j) {
 
 function write_header(   l) {
     # time,itimestep,imin,imax,jmin,jmax,kmin,kmax
-    sf("es17.8e3")
+    format_set("es17.8e3")
     l = l pn(time)
-    sf("I10")
+    format_set("I10")
     l = l pn(itimestep) pn(imin) pn(imax) pn(jmin) pn(jmax) pn(kmin) pn(kmax)
     print l
 }
 
 function write_vof(   i, j, k,   l) {
     for (k=kmin; k<=kmax; k++) for (j=jmin; j<=jmax; j++) for (i=imin; i<=imax; i++) {
-       sf("es25.16e3")
+       format_set("es25.16e3")
        l = pn(u[i,j,k]) pn(v[i,j,k]) pn(w[i,j,k]) pn(p[i,j,k]) pn(cvof[i,j,k])
        print l
     }
@@ -46,6 +46,7 @@ BEGIN {
     write_vof()
 }
 
+function pn(s) {return format_print(s) } # [p]rint [n]umper
 function die(s) { msg(s); exit(1) }
 function msg(s) { printf "\n(b2b.awk) %s\n", s | "cat 1>&2" }
 
