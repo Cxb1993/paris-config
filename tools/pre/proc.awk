@@ -1,5 +1,11 @@
 #!/usr/bin/awk -f
 
+# split between processor
+#
+# usage:
+# ./proc.awk -f input.awk test_data/input.8.16
+# ./proc.awk -f input.awk test_data/input
+
 BEGIN {
     conf_ini()
     conf(ARGV[1])
@@ -32,3 +38,6 @@ BEGIN {
 	print imin, imax, jmin, jmax, kmin, kmax
     }
 }
+
+# TEST: proc.t0
+# ./proc.awk -f input.awk test_data/input.8.16  > t.out.txt
