@@ -1,6 +1,6 @@
 # read backup
 
-function rbackup(f) {
+function rbackup(f) { # sets `time', `itimestep'
     rbackup_header(f)
     rbackup_data(f)
 }
