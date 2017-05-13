@@ -37,10 +37,10 @@ function val_and_type(e) { # return value and set type
     return e # :TODO: check if it a number
 }
 
-function input_reg(name_idx, val) { # register `val' at CONF
-    if (name_idx in CONF) input_die("seen " name_idx " before")
+function input_reg(name_idx, val) { # register `val' at INPUT
+    if (name_idx in INPUT) input_die("seen " name_idx " before")
     ORD[INPUT_I++] = name_idx
-    CONF[name_idx] = val
+    INPUT[name_idx] = val
 }
 
 function input_input0(l_org,  ob, cb, idx, c, i, n, aval, name, val, tok) { # parse a line
@@ -89,7 +89,7 @@ function input_input0(l_org,  ob, cb, idx, c, i, n, aval, name, val, tok) { # pa
 		       "number"
 }
 
-function input(f,  l, i) { # sets `CONF', `TYPE' and `ARRAY'
+function input(f,  l, i) { # sets `INPUT', `TYPE' and `ARRAY'
     while (getline l < f > 0) {
 	CNT = f ":" ++i # context for error reporting
 	l = input_skip_comm(l)

@@ -22,7 +22,7 @@ BEGIN {
 	type = TYPE[name]; array = ARRAY[name]
 	if (array) write_array(type, name)
 	else {
-	    val = CONF[name_idx]
+	    val = INPUT[name_idx]
 	    write_scalar(type, name, val)
 	}
     }
@@ -42,8 +42,8 @@ function write_array0(type, name0,   i, n, name, idx, S, sep, rhs) {
 	name = name_idx; sub(S ".*",      "", name)
 	idx = name_idx; sub("[^" S "]*" S, "", idx)
 	if (name != name0) continue
-	
-	val = CONF[name_idx]	 
+
+	val = INPUT[name_idx]
 	idx = idx2py(idx)
 	rhs = rhs sep idx ": " all2py(type, val) # right-hand side
 	sep = ", "
@@ -62,7 +62,7 @@ function all2py(t, v)  {
     else if (t == "string")  return string2py(v)
     die("unknown type " t)
 }
-    
+
 function logical2py(v) { return val == "T" ? "True" : "False" }
 function number2py(v)  { sub("d", "e", v); return v }
 function string2py(v)  { return "'" v "'" }

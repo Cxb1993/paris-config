@@ -18,7 +18,7 @@ BEGIN {
 	type = TYPE[name]; array = ARRAY[name]
 	if (array) write_array(type, name)
 	else {
-	    val = CONF[name_idx]
+	    val = INPUT[name_idx]
 	    write_scalar(type, name, val)
 	}
     }
@@ -37,10 +37,10 @@ function write_array0(type, name0,   i, n, name, idx, S, sep, rhs) {
 	S = SUBSEP
 	name = name_idx; sub(S ".*",      "", name)
 	if (name != name0) continue
-	
-	val = CONF[name_idx]	 
+
+	val = INPUT[name_idx]
 	rhs = rhs sep all2m(type, val) # right-hand side (naive with
-	                               # indexes) :TODO:
+				       # indexes) :TODO:
 	sep = ", "
     }
     rhs = "{" rhs "}" # matlab cell array
@@ -57,7 +57,7 @@ function all2m(t, v)  {
     else if (t == "string")  return string2m(v)
     die("unknown type " t)
 }
-    
+
 function logical2m(v) { return val == "T" ? "true" : "false" }
 function number2m(v)  { sub("d", "e", v); return v }
 function string2m(v)  { return "'" v "'" }

@@ -12,13 +12,13 @@ BEGIN {
     input(ARGV[1])
 
     # use conventions from the code
-    nPx = CONF["npx"]; nPy = CONF["npy"]; nPz = CONF["npz"]
-    Nx = CONF["Nx"]; Ny = CONF["Ny"]; Nz = CONF["Nz"]
-    Ng = CONF["Ng"]
+    nPx = INPUT["npx"]; nPy = INPUT["npy"]; nPz = INPUT["npz"]
+    Nx = INPUT["Nx"]; Ny = INPUT["Ny"]; Nz = INPUT["Nz"]
+    Ng = INPUT["Ng"]
 
-    xLength = CONF["XLENGTH"]
-    yLength = CONF["YLENGTH"]
-    zLength = CONF["ZLENGTH"]
+    xLength = INPUT["XLENGTH"]
+    yLength = INPUT["YLENGTH"]
+    zLength = INPUT["ZLENGTH"]
 
     Mx = Nx/nPx; My = Ny/nPy; Mz = Nz/nPz
     n[X] = Mx; n[Y] = My; n[Z] = Mz
