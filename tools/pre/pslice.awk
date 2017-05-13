@@ -1,5 +1,9 @@
 #!/usr/bin/awk -f
 
+# Plot a one-dimensional slice of the backup files
+# Usage:
+# ./pslice.awk -f input.awk <input.templ> <backup>...
+
 BEGIN {
     read_input(ARGV[1]); shift();
     i0 = int(Ny*nPy/2); k0 = int(Nz*nPz/2)
@@ -12,9 +16,8 @@ BEGIN {
 }
 
 function write(   j) {
-    for (j = jmin; j <= jmax; j++) {
+    for (j = jmin; j <= jmax; j++)
 	print j, u[i0, j, k0]
-    }
 }
 
 function limits(   key, i, j, k, a) { # sets [ijk]min, [ijk]max
