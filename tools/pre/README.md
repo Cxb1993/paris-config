@@ -1,9 +1,6 @@
 # Tools to work with input and backup files
 
-# examples
-* [b2b.awk](b2b.awk) read and write backup
-
-# programs
+## programs
 * [p2mp2matlab.awk](p2matlab.awk), [p2py.awk](p2py.awk) convert input
      into matlab and python code
 * [pproc](pproc) returns the number of processors
@@ -12,3 +9,6 @@
 ## libraries
 * [input.awk](input.awk) "input" file parser
 * [format.awk](format.awk) format like fortran (see format.example)
+
+## examples
+* [b2b.awk](b2b.awk) read and write backup
