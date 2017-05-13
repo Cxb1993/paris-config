@@ -1,5 +1,6 @@
 install_openmpi () (
     force_cd "$PARIS_ROOT/3rd"
+    msg 'openmpi(3rd):' `pwd`
     va=2.0 vb=1 # major and minor versions
     d=https://www.open-mpi.org/software/ompi/v${va}/downloads
     f=openmpi-${va}.${vb}.tar.gz
@@ -16,6 +17,7 @@ install_openmpi () (
 
 install_vofi () (
     force_cd "$PARIS_ROOT/3rd"
+    msg 'vofi(3rd):' `pwd`
     v=1.0
     d=http://www.ida.upmc.fr/~zaleski/paris
     f=Vofi-${v}.tar.gz
@@ -24,13 +26,14 @@ install_vofi () (
     cd Vofi
     msg 'vofi(src):' `pwd`
     msg 'vofi(pre):' "$PARIS_PREFIX/vofi"
-    ./configure --prefix="$PARIS_PREFIX/vofi" > /dev/null 
+    ./configure --prefix="$PARIS_PREFIX/vofi" > /dev/null
     make                                      > make.log # fails in parallel
     make install                              > make.install.log
 )
 
 install_hypre () (
     force_cd "$PARIS_ROOT/3rd"
+    msg 'hypre(3rd):' `pwd`
     v=2.11.2
     d=https://github.com/LLNL/hypre/archive
     f=v${v}.tar.gz
@@ -46,14 +49,15 @@ install_hypre () (
 
 install_silo () (
     force_cd "$PARIS_ROOT/3rd"
+    msg 'silo(3rd):' `pwd`
     v=4.10.2
     d=https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-${v}
     f=silo-${v}.tar.gz
     curl -s -O $d/$f
     tar zxf       $f
-    cd silo-${v}    
+    cd silo-${v}
     msg 'silo(src):' `pwd`
-    msg 'silo(pre):' "$PARIS_PREFIX/silo"    
+    msg 'silo(pre):' "$PARIS_PREFIX/silo"
     ./configure --prefix="$PARIS_PREFIX/silo" > /dev/null
     make -j8                                  > make.log
     make install                              > make.install.log
@@ -67,5 +71,5 @@ clone_paris () (
 )
 
 install_tools () {
-    (cd tools/wparis && make install BIN=$PARIS_BIN)
+    (cd tools/wparis && make install BIN="$PARIS_BIN")
 }
