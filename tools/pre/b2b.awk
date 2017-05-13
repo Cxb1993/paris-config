@@ -3,9 +3,6 @@
 # Read and write backup file
 # See `backup_VOF_write' and `backup_VOF_read' functions in paris-git/vofmodules.f90
 
-# TEST: b2b.t0
-# ./b2b.awk test_data/backup_00000 | head -n 100 > backup.out.txt
-
 function read_header(f,   q) {
     getline < f
     q = 0
@@ -100,3 +97,6 @@ BEGIN {
 
 function die(s) { msg(s); exit(1) }
 function msg(s) { printf "\n(b2b.awk) %s\n", s | "cat 1>&2" }
+
+# TEST: b2b.t0
+# ./b2b.awk test_data/backup_00000 | head -n 100 > backup.out.txt
