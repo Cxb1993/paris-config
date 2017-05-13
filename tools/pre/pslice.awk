@@ -1,6 +1,6 @@
 #!/usr/bin/awk -f
 
-# Plot a one-dimensional slice of the backup files
+# Make a one-dimensional slice of backup files
 # Usage:
 # ./pslice.awk -f input.awk <input.templ> <backup>...
 
