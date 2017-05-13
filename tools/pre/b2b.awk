@@ -46,7 +46,7 @@ BEGIN {
     write_vof()
 }
 
-function pn(s) {return format_print(s) } # [p]rint [n]umper
+function pn(s) {return format_print(s) } # [p]rint [n]umber
 function die(s) { msg(s); exit(1) }
 function msg(s) { printf "\n(b2b.awk) %s\n", s | "cat 1>&2" }
 
