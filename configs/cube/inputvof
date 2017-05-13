@@ -1,6 +1,6 @@
 &VOFPARAMETERS
 
-VOFBDRY_COND = 'periodic' 'dry' 'dry'
+VOFBDRY_COND = 'periodic' 'dry' 'periodic'
 		! Type of VOF boundary condition in x,y,z direction: 'wet', '90deg','periodic'
 
 TEST_TYPE = 'bubbles_test'
