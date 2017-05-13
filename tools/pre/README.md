@@ -1,4 +1,4 @@
-# Tools to work with input and backup files
+# Tools for input and backup files
 
 ## programs
 * [p2mp2matlab.awk](p2matlab.awk), [p2py.awk](p2py.awk) convert input
