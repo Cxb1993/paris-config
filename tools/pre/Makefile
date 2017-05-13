@@ -1,0 +1,12 @@
+BIN = $(HOME)/bin
+P   = $(HOME)/.paris
+
+PROG = pnproc
+CONF = pnproc.awk input.awk
+
+install: install_prog install_conf
+
+install_prog:; mkdir -p $(BIN) && cp $(PROG) $(BIN)
+install_conf:; mkdir -p $(P)   && cp $(CONF) $(P)
+
+.PHONY: install install_conf install_prog
