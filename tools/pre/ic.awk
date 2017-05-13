@@ -10,8 +10,8 @@ BEGIN {
     time = itimestep = 0
 
     X = 1; Y = 2; Z = 3
-    conf_ini()
-    conf(ARGV[1])
+    input_ini()
+    input(ARGV[1])
 
     # use conventions from the code
     nPx = CONF["npx"]; nPy = CONF["npy"]; nPz = CONF["npz"]

@@ -9,8 +9,8 @@
 # ./p2matlab.awk -f input.awk  test_data/inputvof  > p.out.m
 
 BEGIN {
-    conf_ini()
-    conf(ARGV[1])
+    input_ini()
+    input(ARGV[1])
 
     for (i = 0; i in ORD; i++) {
 	name_idx = ORD[i]

@@ -13,8 +13,8 @@
 # ./p2py.awk -f input.awk test_data/inputvof.missing  2> error.out.txt
 
 BEGIN {
-    conf_ini()
-    for (i = 1; i < ARGC; i++) conf(ARGV[i])
+    input_ini()
+    for (i = 1; i < ARGC; i++) input(ARGV[i])
 
     for (i = 0; i in ORD; i++) {
 	name_idx = ORD[i]
