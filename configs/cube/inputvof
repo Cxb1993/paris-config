@@ -1,0 +1,13 @@
+&VOFPARAMETERS
+
+VOFBDRY_COND = 'periodic' 'dry' 'dry'
+		! Type of VOF boundary condition in x,y,z direction: 'wet', '90deg','periodic'
+
+TEST_TYPE = 'bubbles_test'
+VOF_ADVECT = 'Dick_Yue'
+DoLPP     = F
+!=================================================================================================
+
+&end
+/
+! end of the namelist
