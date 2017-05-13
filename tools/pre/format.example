@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# An example for format.awk
+p () (
+    fmt=$1 num=$2
+    gawk -i format.awk 'BEGIN {format_set("'$fmt'"); print format_print('$num')}'
+)
+
+p es10.2e3 42
+p es10.2e2 42
+p       I3 42

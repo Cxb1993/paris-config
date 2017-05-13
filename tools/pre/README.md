@@ -4,3 +4,4 @@ A tiny preprocessor
      file into file matlab or python can use
 * [input.awk](input.awk) parser used by p2py.awk and p2matlab.awk
 * [b2b.awk](b2b.awk) read and write backup file
+* [format.awk](format.awk) format like fortran (see format.example)
