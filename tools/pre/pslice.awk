@@ -4,6 +4,9 @@
 # Usage:
 # ./pslice.awk -f input.awk <input.templ> <backup>...
 
+# tar zxvf zip/np8eq.tar.gz
+# ./pslice.awk -f input.awk test_data/np8eq/input test_data/np8eq/backup_0000[0-7]
+
 BEGIN {
     read_input(ARGV[1]); shift();
     i0 = int(Ny*nPy/2); k0 = int(Nz*nPz/2)
@@ -17,8 +20,11 @@ BEGIN {
 
 function write(   j) {
     for (j = jmin; j <= jmax; j++)
-	print j, u[i0, j, k0]
+	print y(j), u[i0, j, k0]
 }
+
+function yh(j) { return  (j - Ng)      *yLength/Ny }
+function  y(j) { return  (j - Ng - 1/2)*yLength/Ny }
 
 function limits(   key, i, j, k, a) { # sets [ijk]min, [ijk]max
     imin = jmin = kmin =  1e20
@@ -40,6 +46,7 @@ function read_input(f) {
     nPx = INPUT["npx"]; nPy = INPUT["npy"]; nPz = INPUT["npz"]
     Nx = INPUT["Nx"]; Ny = INPUT["Ny"]; Nz = INPUT["Nz"]
     Ng = INPUT["Ng"]
+    xLength = INPUT["XLENGTH"]; yLength = INPUT["YLENGTH"]; zLength = INPUT["ZLENGTH"]
 }
 
 function read_header(f,   q) {
