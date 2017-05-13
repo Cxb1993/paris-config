@@ -1,6 +1,6 @@
 #!/usr/bin/awk -f
 
-# split between processor
+# split between processors
 #
 # usage:
 # ./proc.awk -f input.awk test_data/input.8.16
