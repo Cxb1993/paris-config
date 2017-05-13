@@ -1,6 +1,0 @@
-A tiny preprocessor
-
-- p2matlab.awk, p2py.awk :: convert paris input file into file matlab
-     or python can use
-
-- input.awk :: parser used by p2py.awk and p2matlab.awk
