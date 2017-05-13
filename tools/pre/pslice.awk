@@ -31,7 +31,7 @@ function write(   j) {
 	print y(j), u[i0, j, k0]
 }
 
-function yh(j) { return  (j - Ng)      *yLength/Ny }
+#function yh(j) { return  (j - Ng)      *yLength/Ny }
 function  y(j) { return  (j - Ng - 1/2)*yLength/Ny }
 
 function shift(  i) { for (i = 2; i < ARGC; i++) ARGV[i-1] = ARGV[i]; ARGC-- }
