@@ -7,8 +7,9 @@
 * [pslice](pslice) one-dimensional slice of backup
 
 ## libraries
-* [input.awk](input.awk) "input" file parser
-* [format.awk](format.awk) format like fortran (see format.example)
+* [input.awk](input.awk) input file parser
+* [format.awk](format.awk) format numbers like fortran (see
+  format.example)
 
 ## examples
 * [b2b.awk](b2b.awk) read and write backup
