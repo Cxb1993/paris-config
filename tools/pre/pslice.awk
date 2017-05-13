@@ -2,10 +2,10 @@
 
 # Make a one-dimensional slice of backup files
 # Usage:
-# ./pslice.awk -f input.awk <input.templ> <backup>...
+# ./pslice.awk -f rbackup.awk -f input.awk <input.templ> <backup>...
 
 # tar zxvf zip/np8eq.tar.gz
-# ./pslice.awk -f input.awk test_data/np8eq/input test_data/np8eq/backup_0000[0-7]
+# ./pslice.awk -f rbackup.awk -f input.awk test_data/np8eq/input test_data/np8eq/backup_0000[0-7]
 
 BEGIN {
     read_input(ARGV[1]); shift();
