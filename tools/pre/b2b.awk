@@ -3,6 +3,15 @@
 # Read and write backup file
 # See `backup_VOF_write' and `backup_VOF_read' functions in paris-git/vofmodules.f90
 
+BEGIN {
+    f = ARGV[1]
+    rbackup_header(f)
+    read(f)
+
+    write_header()
+    write_vof()
+}
+
 function rbackup_header(f,   q) {
     getline < f
     q = 0
@@ -35,15 +44,6 @@ function write_vof(   i, j, k,   l) {
        l = pn(u[i,j,k]) pn(v[i,j,k]) pn(w[i,j,k]) pn(p[i,j,k]) pn(cvof[i,j,k])
        print l
     }
-}
-
-BEGIN {
-    f = ARGV[1]
-    rbackup_header(f)
-    read(f)
-
-    write_header()
-    write_vof()
 }
 
 function pn(s) {return format_print(s) } # [p]rint [n]umber
