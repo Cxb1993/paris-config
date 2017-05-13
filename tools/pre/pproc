@@ -1,0 +1,4 @@
+#!/bin/bash
+
+p=$HOME/.paris
+awk -f "$p/input.awk" -f "$p/pproc.awk" "$@"
