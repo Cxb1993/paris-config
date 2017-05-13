@@ -7,6 +7,7 @@
 # ./proc.awk -f input.awk test_data/input
 
 BEGIN {
+    X = 1; Y = 2; Z = 3
     conf_ini()
     conf(ARGV[1])
 
@@ -20,17 +21,17 @@ BEGIN {
     zLength = CONF["ZLENGTH"]
 
     Mx = Nx/nPx; My = Ny/nPy; Mz = Nz/nPz
-    n[1] = Mx; n[2] = My; n[3] = Mz
+    n[X] = Mx; n[Y] = My; n[Z] = Mz
 
-    for (coords[1] = 0; coords[1] < nPx; coords[1]++)
-    for (coords[2] = 0; coords[2] < nPy; coords[2]++)
-    for (coords[3] = 0; coords[3] < nPz; coords[3]++) {
-	is=coords[1]*n[1]+1+Ng; imin=is-Ng
-	js=coords[2]*n[2]+1+Ng; jmin=js-Ng
-	ks=coords[3]*n[3]+1+Ng; kmin=ks-Ng
-	ie = is + n[1] - 1
-	je = js + n[2] - 1
-	ke = ks + n[3] - 1
+    for (coords[X] = 0; coords[X] < nPx; coords[X]++)
+    for (coords[Y] = 0; coords[Y] < nPy; coords[Y]++)
+    for (coords[Z] = 0; coords[Z] < nPz; coords[Z]++) {
+	is=coords[X]*n[X]+1+Ng; imin=is-Ng
+	js=coords[Y]*n[Y]+1+Ng; jmin=js-Ng
+	ks=coords[Z]*n[Z]+1+Ng; kmin=ks-Ng
+	ie = is + n[X] - 1
+	je = js + n[Y] - 1
+	ke = ks + n[Z] - 1
 	imax = ie + Ng
 	jmax = je + Ng
 	kmax = ke + Ng
