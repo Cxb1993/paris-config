@@ -1,17 +1,11 @@
-function read_backup(f) {
-    read_header(f)
-    read_data(f)
+# read backup
+
+function rbackup(f) {
+    rbackup_header(f)
+    rbackup_data(f)
 }
 
-function read_input(f) {
-    input_ini(); input(f)
-    nPx = INPUT["npx"]; nPy = INPUT["npy"]; nPz = INPUT["npz"]
-    Nx = INPUT["Nx"]; Ny = INPUT["Ny"]; Nz = INPUT["Nz"]
-    Ng = INPUT["Ng"]
-    xLength = INPUT["XLENGTH"]; yLength = INPUT["YLENGTH"]; zLength = INPUT["ZLENGTH"]
-}
-
-function read_header(f,   q) {
+function rbackup_header(f,   q) {
     getline < f
     q = 0
     time = $(++q); itimestep = $(++q)
@@ -19,7 +13,7 @@ function read_header(f,   q) {
     jmax = $(++q); kmin = $(++q); kmax = $(++q)
 }
 
-function read_data(f,  l, q, k, i, j) {
+function rbackup_data(f,  l, q, k, i, j) {
     for (k=kmin; k<=kmax; k++) for (j=jmin; j<=jmax; j++) for (i=imin; i<=imax; i++) {
       getline < f
       q = 0
@@ -28,7 +22,7 @@ function read_data(f,  l, q, k, i, j) {
     }
 }
 
-function limits(   key, i, j, k, a) { # sets [ijk]min, [ijk]max
+function rbackup_limits(   key, i, j, k, a) { # sets [ijk]min, [ijk]max
     imin = jmin = kmin =  1e20
     imax = jmax = kmax = -1e20
     for (key in u) {

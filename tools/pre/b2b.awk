@@ -3,7 +3,7 @@
 # Read and write backup file
 # See `backup_VOF_write' and `backup_VOF_read' functions in paris-git/vofmodules.f90
 
-function read_header(f,   q) {
+function rbackup_header(f,   q) {
     getline < f
     q = 0
     time = $(++q); itimestep = $(++q)
@@ -39,7 +39,7 @@ function write_vof(   i, j, k,   l) {
 
 BEGIN {
     f = ARGV[1]
-    read_header(f)
+    rbackup_header(f)
     read(f)
 
     write_header()

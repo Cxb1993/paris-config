@@ -12,10 +12,18 @@ BEGIN {
     i0 = int(Ny*nPy/2); k0 = int(Nz*nPz/2)
 
     while (ARGC > 1) {
-	read_backup(ARGV[1]); shift()
+	rbackup(ARGV[1]); shift()
     }
-    limits()
+    rbackup_limits()
     write()
+}
+
+function read_input(f) {
+    input_ini(); input(f)
+    nPx = INPUT["npx"]; nPy = INPUT["npy"]; nPz = INPUT["npz"]
+    Nx = INPUT["Nx"]; Ny = INPUT["Ny"]; Nz = INPUT["Nz"]
+    Ng = INPUT["Ng"]
+    xLength = INPUT["XLENGTH"]; yLength = INPUT["YLENGTH"]; zLength = INPUT["ZLENGTH"]
 }
 
 function write(   j) {
@@ -33,3 +41,4 @@ function shift(  i) { for (i = 2; i < ARGC; i++) ARGV[i-1] = ARGV[i]; ARGC-- }
 # ./pslice.awk -f input.awk -f rbackup.awk \
 #   test_data/np8eq/input test_data/np8eq/backup_0000[0-7] > \
 #   p.out.txt
+#
