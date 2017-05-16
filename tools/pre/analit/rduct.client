@@ -1,6 +1,7 @@
 #!/bin/bash
 
-awk -f rduct.awk -f rduct.client.awk
+p=$HOME/.paris
+awk -f "$p/rduct.awk" -f rduct.client.awk
 
 # TEST: rduct.t0
 # ./rduct.client   > prof.out.dat
