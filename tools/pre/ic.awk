@@ -1,10 +1,10 @@
 #!/usr/bin/awk -f
-
-# split between processors
+#
+# generate backup files
 #
 # usage:
-# ./ic.awk -f input.awk test_data/input.8.16
-# ./ic.awk -f input.awk test_data/input
+# ./ic.awk -f format.awk -f input.awk test_data/input.8.16
+# ./ic.awk -f format.awk -f input.awk test_data/input
 
 BEGIN {
     time = itimestep = 0
@@ -40,7 +40,6 @@ BEGIN {
 
 	write_header()
 	write_vof()
-	exit
     }
 }
 
