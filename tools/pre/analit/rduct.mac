@@ -1,3 +1,18 @@
 /* [R]ectangular duct
 Ref: refs/shah71.pdf */
 
+sumn(e):=block([s: 0],
+  for n thru ninf step 2 do s: s + subst('n=n, e),
+  s);
+
+ninf: 10;
+A: -16*c1*a^2/%pi^3;
+e0: 1/n^3 * (-1)^( (n-1)/2 );
+e1: 1 - cosh(n*%pi*y/(2*a))/cosh(n*%pi*b/(2*a));
+e2: cos(n*%pi*z/(2*a));
+u: A * sumn( e0*e1*e2);
+
+surf: explicit(u, z, -a, a, y, -b, b);
+surf0: subst([a=1, b=1, c1=-1], surf);
+
+draw3d(surf0);
