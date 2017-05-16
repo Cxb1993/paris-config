@@ -3,8 +3,8 @@
 # generate backup files
 #
 # usage:
-# ./ic.awk -f format.awk -f input.awk test_data/input.8.16
-# ./ic.awk -f format.awk -f input.awk test_data/input
+# ./pic.awk -f format.awk -f input.awk test_data/input.8.16
+# ./pic.awk -f format.awk -f input.awk test_data/input
 
 BEGIN {
     time = itimestep = 0
