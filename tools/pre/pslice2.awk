@@ -4,8 +4,8 @@
 # Usage:
 # ./pslice2.awk -f rbackup.awk -f input.awk <input.templ> <backup>...
 
-# tar zxvf zip/np8eq.tar.gz
-# ./pslice2.awk -f rbackup.awk -f input.awk test_data/np8eq/input test_data/np8eq/backup_0000[0-7]
+# tar zxvf zip/np8cube.tar.gz
+# ./pslice2.awk -f rbackup.awk -f input.awk test_data/np8cube/input test_data/np8cube/backup_0000[0-7]
 
 BEGIN {
     read_input(ARGV[1]); shift();

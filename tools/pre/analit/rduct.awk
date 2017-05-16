@@ -3,7 +3,8 @@
 BEGIN {
     pi = 3.141592653589793
     c1 = -1 # a pressure gradient parameter, (dp/dx)/(mu/gc)
-    b = 1; a = 1
+	    # dynamic viscosity, mu
+    b = 0.5; a = 0.5
     n = m = 30
 
     ylo = -b; yhi = b # a cross section of a rectangular duct
@@ -20,7 +21,7 @@ BEGIN {
 }
 
 function f(y, z,    z0, y0, b0,   n, nm,   s, A, e0, e1, e2) {
-    nm = 30
+    nm = 50 # number of elements in a seria
     z0 = z*pi/(2*a)
     y0 = y*pi/(2*a)
     b0 = b*pi/(2*a)
