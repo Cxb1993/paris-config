@@ -11,12 +11,12 @@ BEGIN {
     zlo = -a; zhi = a
 
     for (i = 0; i < n; i++) {
+	if (i > 0) printf "\n"
 	for (j = 0; j < m; j++) {
 	    y = ylo + (yhi - ylo)/(n - 1) * i
 	    z = zlo + (zhi - zlo)/(m - 1) * j
 	    print y, z, f(y, z)
 	}
-	printf "\n"
     }
 }
 
@@ -40,3 +40,6 @@ function cosh(x) {
     if (x > 21) return exp(x)/2
     return (exp(x) + exp(-x))/2
 }
+
+# TEST: rduct.t0
+# ./rduct.awk   > prof.out.dat
