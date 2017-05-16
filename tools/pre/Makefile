@@ -1,8 +1,8 @@
 BIN = $(HOME)/bin
 P   = $(HOME)/.paris
 
-PROG = pproc
-CONF = pproc.awk input.awk
+PROG = pproc pic
+CONF = pproc.awk input.awk pic.awk format.awk
 
 install: install_prog install_conf
 

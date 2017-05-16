@@ -1,0 +1,12 @@
+#!/bin/bash
+
+p=$HOME/.paris
+
+# rduct.awk is from tools/pre/analit
+awk -f "$p/rduct.awk"  \
+    -f "$p/format.awk" \
+    -f "$p/input.awk"  \
+    -f "$p/pic.awk"   "$@"
+
+# TEST: pic.t0
+# pic test_data/np8cube/input  > pic.out.dat

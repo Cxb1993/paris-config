@@ -22,6 +22,9 @@ BEGIN {
     yLength = INPUT["YLENGTH"]
     zLength = INPUT["ZLENGTH"]
 
+    mu   = INPUT["MU1"]
+    dpdx = INPUT["dPdX"]
+    rduct_ini(yLength/2, zLength/2, dpdx/mu)
     Mx = Nx/nPx; My = Ny/nPy; Mz = Nz/nPz
     n[X] = Mx; n[Y] = My; n[Z] = Mz
 

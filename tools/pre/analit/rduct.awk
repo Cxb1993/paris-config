@@ -1,9 +1,13 @@
 #!/usr/bin/awk -f
 
 function rduct_ini(b, a, c1) {
+    # c1: a pressure gradient parameter, (dp/dx)/(mu/gc),
+    #     where dynamic viscosity, mu
+    #     gc - ?
     rduct_b = b; rduct_a = a; rduct_c1 = c1
 }
 
+function rduct0(y, z) { return rduct(y - rduct_b, z - rduct_a) }
 function rduct(y, z,    z0, y0, b0,   n, nm,   s, A, e0, e1, e2,   a, b, c, pi) {
     pi = 3.141592653589793
     a = rduct_a; b = rduct_b; c1 = rduct_c1
