@@ -2,11 +2,11 @@
 
 BEGIN {
     pi = 3.141592653589793
-    c1 = -1
+    c1 = -1 # a pressure gradient parameter, (dp/dx)/(mu/gc)
     b = 1; a = 1
     n = m = 30
 
-    ylo = -b; yhi = b
+    ylo = -b; yhi = b # a cross section of a rectangular duct
     zlo = -a; zhi = a
 
     for (i = 0; i < n; i++) {

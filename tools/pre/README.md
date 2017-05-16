@@ -5,6 +5,7 @@
      into matlab and python code
 * [pproc](pproc) returns the number of processors
 * [pslice](pslice) one-dimensional slice of backup
+* [pslice2](pslice2) two-dimensional slice of backup
 
 ## libraries
 * [input.awk](input.awk) input file parser
