@@ -27,9 +27,11 @@ function read_input(f) {
 }
 
 function write(   j, k) {
-    for (j = jmin; j <= jmax; j++)
-    for (k = kmin; k <= kmax; k++)
-	print y(j), z(k), u[i0, j, k]
+    for (j = jmin; j <= jmax; j++) {
+	for (k = kmin; k <= kmax; k++)
+	    print y(j), z(k), u[i0, j, k]
+	printf "\n"
+    }
 }
 
 function  y(i) { return  (i - Ng - 1/2)*yLength/Ny }
