@@ -9,4 +9,5 @@ awk -f "$p/rduct.awk"  \
     -f "$p/pic.awk"   "$@"
 
 # TEST: pic.t0
+# tar zxf zip/np8cube.tar.gz
 # pic test_data/np8cube/input  > pic.out.dat
