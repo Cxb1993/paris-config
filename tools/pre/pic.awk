@@ -6,12 +6,20 @@
 # ./pic.awk -f format.awk -f input.awk test_data/input.8.16
 # ./pic.awk -f format.awk -f input.awk test_data/input
 
+function arg() {
+    dir = ARGV[1]; shift() # output directory
+    fi  = ARGV[2]; shift() # input file
+}
+
 BEGIN {
+    fo_fmt = "%s/backup_%05d" 
+    arg()
     time = itimestep = 0
 
     X = 1; Y = 2; Z = 3
+
     input_ini()
-    input(ARGV[1])
+    input(fi)
 
     # use conventions from the code
     nPx = INPUT["npx"]; nPy = INPUT["npy"]; nPz = INPUT["npz"]
@@ -24,7 +32,6 @@ BEGIN {
 
     mu   = INPUT["MU1"]
     dpdx = INPUT["dPdX"]
-    rduct_ini(yLength/2, zLength/2, dpdx/mu)
     Mx = Nx/nPx; My = Ny/nPy; Mz = Nz/nPz
     n[X] = Mx; n[Y] = My; n[Z] = Mz
 
@@ -47,14 +54,19 @@ BEGIN {
 	jmax = je + Ng
 	kmax = ke + Ng
 
-	set_u()
-
-	write_header()
-	write_vof()
+	# set_u()
+	write(sprintf(fo_fmt, dir, iproc++))
     }
 }
 
+function write(f) {
+    write_header(f)
+    write_vof(f)
+    close(f)
+}
+
 function set_u(   i, j, k, y0, u0) {
+    rduct_ini(yLength/2, zLength/2, dpdx/mu)  # initialize analytical profile
     for (k = ks; k <= ke; k++) for (j = js; j <= je; j++) {
        y0 = y(j); z0 = z(k)
        u0 = rduct0(y0, z0)
@@ -62,24 +74,25 @@ function set_u(   i, j, k, y0, u0) {
     }
 }
 
-function write_header(   l) {
+function write_header(f,   l) {
     # time,itimestep,imin,imax,jmin,jmax,kmin,kmax
     format_set("es17.8e3")
     l = l pn(time)
     format_set("I10")
     l = l pn(itimestep) pn(imin) pn(imax) pn(jmin) pn(jmax) pn(kmin) pn(kmax)
-    print l
+    print l > f
 }
 
-function write_vof(   i, j, k,   l) {
+function write_vof(f,   i, j, k,   l) {
     for (k=kmin; k<=kmax; k++) for (j=jmin; j<=jmax; j++) for (i=imin; i<=imax; i++) {
        format_set("es25.16e3")
        l = pn(u[i,j,k]) pn(v[i,j,k]) pn(w[i,j,k]) pn(p[i,j,k]) pn(cvof[i,j,k])
-       print l
+       print l > f
     }
 }
 
 function pn(s) { return format_print(s) } # [p]rint [n]umber
-
 function  z(i) { return  (i - Ng - 1/2)*zLength/Nz }
 function  y(i) { return  (i - Ng - 1/2)*yLength/Ny }
+
+function shift(  i) { for (i = 2; i < ARGC; i++) ARGV[i-1] = ARGV[i]; ARGC-- }

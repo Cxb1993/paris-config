@@ -1,6 +1,13 @@
 #!/bin/bash
 
 p=$HOME/.paris
+err () { printf "$@" >&2; exit 2; }
+usg () { err 'usage: pic <output dir> <input file>\n'; }
+
+if test $# = 0; then usg; fi
+
+d=$1 # directory
+test -d "$d" || mkdir "$d" || err 'pic: cannot create directory %s\n' "$d"
 
 # rduct.awk is from tools/pre/analit
 awk -f "$p/rduct.awk"  \
@@ -10,4 +17,4 @@ awk -f "$p/rduct.awk"  \
 
 # TEST: pic.t0
 # tar zxf zip/np8cube.tar.gz
-# pic test_data/np8cube/input  > pic.out.dat
+# pic out test_data/np8cube/input  > pic.out.dat
