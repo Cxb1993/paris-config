@@ -6,6 +6,7 @@
 * [pproc](pproc) returns the number of processors
 * [pslice](pslice) one-dimensional slice of backup
 * [pslice2](pslice2) two-dimensional slice of backup
+* [pic](pic) [p]aris [i]nitial [c]onditions
 
 ## libraries
 * [input.awk](input.awk) input file parser
