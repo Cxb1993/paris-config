@@ -23,7 +23,7 @@ function rbackup_data(f,  l, q, k, i, j) {
     }
 }
 
-function rbackup_limits(   key, i, j, k, a) { # sets [ijk]min, [ijk]max
+function rbackup_limits(u,   key, i, j, k, a) { # sets [ijk]min, [ijk]max
     imin = jmin = kmin =  1e20
     imax = jmax = kmax = -1e20
     for (key in u) {

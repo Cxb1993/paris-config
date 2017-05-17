@@ -14,7 +14,7 @@ BEGIN {
     while (ARGC > 1) {
 	rbackup(ARGV[1]); shift()
     }
-    rbackup_limits()
+    rbackup_limits(u)
     write()
 }
 
