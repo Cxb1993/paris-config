@@ -12,7 +12,7 @@ function arg() {
 }
 
 BEGIN {
-    fo_fmt = "%s/backup_%05d" 
+    fo_fmt = "%s/backup_%05d"
     arg()
     time = itimestep = 0
 
@@ -54,7 +54,8 @@ BEGIN {
 	jmax = je + Ng
 	kmax = ke + Ng
 
-	# set_u()
+	set_u() # uses [ijk][min|max]
+
 	write(sprintf(fo_fmt, dir, iproc++))
     }
 }
@@ -70,7 +71,7 @@ function set_u(   i, j, k, y0, u0) {
     for (k = ks; k <= ke; k++) for (j = js; j <= je; j++) {
        y0 = y(j); z0 = z(k)
        u0 = rduct0(y0, z0)
-       print y0, z0, u0 | "cat >&2"
+       for (i = is; i <= ie; i++) u[i,j,k] = u0
     }
 }
 
