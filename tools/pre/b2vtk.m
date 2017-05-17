@@ -1,6 +1,7 @@
 #!/usr/bin/env octave-qf
 
-1; # make it a script
+global NVAR;
+NVAR = 3 + 1 + 1; # u, v, w, p, cvof
 
 function i = header(fd)
   l = fgets(fd);
@@ -14,17 +15,14 @@ function i = header_file(f)
   fclose(fd);
 endfunction
 
-function data(fd)
-  nvar = 3 + 1 + 1; # u, v, w, p, cvof
+function buf = data(fd)
   buf = fscanf(fd, '%f');
-  buf = reshape(buf, nvar, []);
-  u = buf(1, :);
 endfunction
 
-function rbackup(f)
+function [info, buf] = rbackup(f)
   fd = fopen(f, 'r');
-  header(fd);
-  data(fd);
+  info = header(fd);
+  buf  = data(fd);
   fclose(fd);
 endfunction
 
@@ -46,7 +44,22 @@ function ginfo = limits(fl) # get global domain info
   endfor
 endfunction
 
-f     = 'test_data/np8cube/backup_00000';
-ginfo = limits(argv())
+function f = field_ini(g)
+  f = zeros([g.imax, g.jmax, g.kmax]);
+endfunction
 
-# rbackup(f)
+ginfo = limits(argv());
+fi = @(e) field_ini(ginfo);
+u = fi(); v = fi(); w = fi(); p = fi(); cvof = fi();
+
+#### should be a loop
+ivar = 1;
+[i, buf] = rbackup(argv(){1});
+buf = reshape(buf, NVAR, []);
+u0   = buf(ivar, :);
+u0   = reshape(u0,
+	       i.imax - i.imin + 1,
+	       i.jmax - i.jmin + 1,
+	       i.kmax - i.kmin + 1);
+u(i.imin:i.imax, i.jmin:i.jmax, i.kmin:i.kmax) = u0;
+####
