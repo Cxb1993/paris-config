@@ -5,28 +5,10 @@
 
 BEGIN {
     f = ARGV[1]
-    rbackup_header(f)
-    read(f)
+    rbackup(f)
 
     write_header()
     write_vof()
-}
-
-function rbackup_header(f,   q) {
-    getline < f
-    q = 0
-    time = $(++q); itimestep = $(++q)
-    imin = $(++q); imax = $(++q); jmin = $(++q)
-    jmax = $(++q); kmin = $(++q); kmax = $(++q)
-}
-
-function read(f,  l, q, k, i, j) {
-    for (k=kmin; k<=kmax; k++) for (j=jmin; j<=jmax; j++) for (i=imin; i<=imax; i++) {
-      getline < f
-      q = 0
-      u[i,j,k] = $(++q); v[i,j,k] = $(++q); w[i,j,k] = $(++q)
-      p[i,j,k] = $(++q); cvof[i,j,k] = $(++q)
-    }
 }
 
 function write_header(   l) {
@@ -51,6 +33,6 @@ function die(s) { msg(s); exit(1) }
 function msg(s) { printf "\n(b2b.awk) %s\n", s | "cat 1>&2" }
 
 # TEST: b2b.t0
-# awk -f format.awk -f ./b2b.awk test_data/backup_00000 | \
+# awk -f rbackup.awk -f format.awk -f ./b2b.awk test_data/backup_00000 | \
 #    head -n 100 > backup.out.txt
 #

@@ -19,3 +19,4 @@ awk -f "$p/rduct.awk"  \
 # tar zxf zip/np8cube.tar.gz
 # pic out test_data/np8cube/input
 # cat out/backup_0000[0-7] > pic.out.dat
+#

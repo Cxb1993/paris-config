@@ -1,11 +1,12 @@
 # read backup
 
-function rbackup(f) { # sets `time', `itimestep'
+function rbackup(f) {
     rbackup_header(f)
     rbackup_data(f)
+    close(f)
 }
 
-function rbackup_header(f,   q) {
+function rbackup_header(f,   q) {  # sets `time', `itimestep', ...
     getline < f
     q = 0
     time = $(++q); itimestep = $(++q)
