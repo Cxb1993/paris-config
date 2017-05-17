@@ -31,18 +31,34 @@ BEGIN {
     for (coords[X] = 0; coords[X] < nPx; coords[X]++)
     for (coords[Y] = 0; coords[Y] < nPy; coords[Y]++)
     for (coords[Z] = 0; coords[Z] < nPz; coords[Z]++) {
-	is=coords[X]*n[X]+1+Ng; imin=is-Ng
-	js=coords[Y]*n[Y]+1+Ng; jmin=js-Ng
-	ks=coords[Z]*n[Z]+1+Ng; kmin=ks-Ng
+	is = coords[X]*n[X] + 1 + Ng
+	js = coords[Y]*n[Y] + 1 + Ng
+	ks = coords[Z]*n[Z] + 1 + Ng
+
 	ie = is + n[X] - 1
 	je = js + n[Y] - 1
 	ke = ks + n[Z] - 1
+
+	imin = is - Ng
+	jmin = js - Ng
+	kmin = ks - Ng
+
 	imax = ie + Ng
 	jmax = je + Ng
 	kmax = ke + Ng
 
+	set_u()
+
 	write_header()
 	write_vof()
+    }
+}
+
+function set_u(   i, j, k, y0, u0) {
+    for (k = ks; k <= ke; k++) for (j = js; j <= je; j++) {
+       y0 = y(j); z0 = z(k)
+       u0 = rduct0(y0, z0)
+       print y0, z0, u0 | "cat >&2"
     }
 }
 
@@ -63,4 +79,7 @@ function write_vof(   i, j, k,   l) {
     }
 }
 
-function pn(s) {return format_print(s) } # [p]rint [n]umber
+function pn(s) { return format_print(s) } # [p]rint [n]umber
+
+function  z(i) { return  (i - Ng - 1/2)*zLength/Nz }
+function  y(i) { return  (i - Ng - 1/2)*yLength/Ny }
