@@ -1,4 +1,4 @@
-CSE modifications and tools for PARIS Simulator [^1]
+CSE tools for PARIS Simulator [^1]
 
 Setup
 =====
