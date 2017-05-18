@@ -50,30 +50,30 @@ function ginfo = limits(fl) # get global domain info
   endfor
 endfunction
 
-function f = field_ini(g)
-  f = zeros([g.imax, g.jmax, g.kmax]);
+function field_ini(g)
+  global u v w p cvof
+  fi = @() zeros([g.imax, g.jmax, g.kmax]);
+  u = fi(); v = fi(); w = fi(); p = fi(); cvof = fi();
 endfunction
 
-flist = argv();
-
-ginfo = limits(flist);
-fi = @(e) field_ini(ginfo);
-u = fi(); v = fi(); w = fi(); p = fi(); cvof = fi();
-
-for f = 1:numel(flist); f = flist{f};
-    [i, B] = rbackup(f); % info and buffer
-    si = i.imin : i.imax;
-    sj = i.jmin : i.jmax; % slice of the global array
-    sk = i.kmin : i.kmax;
-    ni = numel(si); nj = numel(sj); nk = numel(sk);
-    B = reshape(B, NVAR, ni, nj, nk);
-    iv = 1; % variable
-    u   (si, sj, sk) = B(iv++, :, :, :);
-    v   (si, sj, sk) = B(iv++, :, :, :);
-    w   (si, sj, sk) = B(iv++, :, :, :);
-    p   (si, sj, sk) = B(iv++, :, :, :);
-    cvof(si, sj, sk) = B(iv++, :, :, :);
-endfor
+function field_read(fl)
+  global u v w p cvof
+  global NVAR
+  for f = 1:numel(fl); f = fl{f};
+      [i, B] = rbackup(f); % info and buffer
+      si = i.imin : i.imax;
+      sj = i.jmin : i.jmax; % slice of the global array
+      sk = i.kmin : i.kmax;
+      ni = numel(si); nj = numel(sj); nk = numel(sk);
+      B = reshape(B, NVAR, ni, nj, nk);
+      iv = 1; % variable
+      u   (si, sj, sk) = B(iv++, :, :, :);
+      v   (si, sj, sk) = B(iv++, :, :, :);
+      w   (si, sj, sk) = B(iv++, :, :, :);
+      p   (si, sj, sk) = B(iv++, :, :, :);
+      cvof(si, sj, sk) = B(iv++, :, :, :);
+  endfor
+endfunction
 
 function vtk_version()
   global fd
@@ -124,6 +124,12 @@ function vtk_scalar()
   byte_skip = 0; arch = "ieee-be";
   fwrite(fd, u, type, byte_skip, arch);
 endfunction
+
+flist = argv();
+
+ginfo = limits(flist);
+field_ini(ginfo);
+field_read(flist);
 
 fo = "o.vtk";
 fd = fopen(fo, "w");
