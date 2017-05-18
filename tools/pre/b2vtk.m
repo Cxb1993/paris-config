@@ -1,9 +1,12 @@
 #!/usr/bin/env octave-qf
 
 global u v w p cvof
+global NAMES
 global NVAR
-NVAR = 3        + 1 + 1;
 global fd # file descriptor
+
+NVAR = 3        + 1 + 1;
+NAMES = {"u", "v", "w", "p", "cvof"};
 
 function i = header()
   global fd
@@ -114,15 +117,15 @@ function vtk_pdata_header()
   p("POINT_DATA %d\n", numel(u));
 endfunction
 
-function vtk_scalar()
-  global fd u
+function vtk_scalar(D, name) # [D]data
+  global fd
   p = @(varargin) fprintf(fd, varargin{:});
   type = "double";
-  p("SCALARS %s %s\n", "u", type)
+  p("SCALARS %s %s\n", name, type)
   p("LOOKUP_TABLE default\n")
   ### ASCII:  dlmwrite(fd, u(:), ' ');
   byte_skip = 0; arch = "ieee-be";
-  fwrite(fd, u, type, byte_skip, arch);
+  fwrite(fd, D, type, byte_skip, arch);
 endfunction
 
 flist = argv();
@@ -134,5 +137,10 @@ fo = "o.vtk";
 fd = fopen(fo, "w");
 vtk_version(); vtk_header(); vtk_format();
 vtk_topo();
-vtk_pdata_header(); vtk_scalar();
+vtk_pdata_header();
+
+iv = 1; N = NAMES;
+vtk_scalar(u, N{iv++}); vtk_scalar(   v, N{iv++}); vtk_scalar(w, N{iv++});
+vtk_scalar(p, N{iv++}); vtk_scalar(cvof, N{iv++});
+
 fclose(fd);
