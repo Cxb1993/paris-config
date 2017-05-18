@@ -71,5 +71,7 @@ clone_paris () (
 )
 
 install_tools () {
-    (cd tools/wparis && make install BIN="$PARIS_BIN")
+    (cd tools/wparis     && make install BIN="$PARIS_BIN")
+    (cd tools/pre        && make install BIN="$PARIS_BIN")
+    (cd tools/pre/analit && make install BIN="$PARIS_BIN")
 }

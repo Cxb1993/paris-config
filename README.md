@@ -1,15 +1,15 @@
 CSE tools for PARIS Simulator [^1]
 
-Setup
-=====
+Install
+=======
 
 Requires fortran, C, and C++ compilers. Test cases require gnuplot [^2]
 and visit [^3]
 
-
 	git clone https://github.com/slitvinov/paris-config
 	cd paris-config
 	deploy/ubuntu.sh
+	cp deploy/.parisrc $HOME
 
 To customize deploy script comment/uncomment lines in
 [file:deploy/ubuntu.sh](deploy/ubuntu.sh) and rerun `deploy/ubuntu.sh`
