@@ -54,21 +54,26 @@ function f = field_ini(g)
   f = zeros([g.imax, g.jmax, g.kmax]);
 endfunction
 
-ginfo = limits(argv());
+flist = argv();
+
+ginfo = limits(flist);
 fi = @(e) field_ini(ginfo);
 u = fi(); v = fi(); w = fi(); p = fi(); cvof = fi();
 
-#### should be a loop
-ivar = 1;
-[i, buf] = rbackup(argv(){1});
-buf = reshape(buf, NVAR, []);
-u0   = buf(ivar, :);
-u0   = reshape(u0,
-	       i.imax - i.imin + 1,
-	       i.jmax - i.jmin + 1,
-	       i.kmax - i.kmin + 1);
-u(i.imin:i.imax, i.jmin:i.jmax, i.kmin:i.kmax) = u0;
-####
+for f = 1:numel(flist); f = flist{f};
+    [i, B] = rbackup(f); % info and buffer
+    si = i.imin : i.imax;
+    sj = i.jmin : i.jmax; % slice of the global array
+    sk = i.kmin : i.kmax;
+    ni = numel(si); nj = numel(sj); nk = numel(sk);
+    B = reshape(B, NVAR, ni, nj, nk);
+    iv = 1; % variable
+    u   (si, sj, sk) = B(iv++, :, :, :);
+    v   (si, sj, sk) = B(iv++, :, :, :);
+    w   (si, sj, sk) = B(iv++, :, :, :);
+    p   (si, sj, sk) = B(iv++, :, :, :);
+    cvof(si, sj, sk) = B(iv++, :, :, :);
+endfor
 
 function vtk_version()
   global fd
@@ -116,7 +121,7 @@ function vtk_scalar()
   p("SCALARS %s %s\n", "u", type)
   p("LOOKUP_TABLE default\n")
   ##  dlmwrite(fd, u(:), ' ');
-  byte_skip = 0; arch = "ieee-be"; 
+  byte_skip = 0; arch = "ieee-be";
   fwrite(fd, u, type, byte_skip, arch);
 endfunction
 
