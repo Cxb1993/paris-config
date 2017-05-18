@@ -1,7 +1,9 @@
 #!/usr/bin/env octave-qf
 
 global NVAR;
-NVAR = 3 + 1 + 1; # u, v, w, p, cvof
+global u; global v; global w;
+global p; global cvof;
+NVAR = 3        + 1 + 1;
 
 function i = header(fd)
   l = fgets(fd);
@@ -63,3 +65,55 @@ u0   = reshape(u0,
 	       i.kmax - i.kmin + 1);
 u(i.imin:i.imax, i.jmin:i.jmax, i.kmin:i.kmax) = u0;
 ####
+
+function vtk_version(fd)
+  p = @(varargin) fprintf(fd, varargin{:});
+  p("# vtk DataFile Version 2.0\n");
+endfunction
+
+function vtk_header(fd)
+  p = @(varargin) fprintf(fd, varargin{:});
+  p("Created with b2vtk.m\n");
+endfunction
+
+function vtk_format(fd)
+  p = @(varargin) fprintf(fd, varargin{:});
+  p("ASCII\n");
+endfunction
+
+function vtk_topo(fd)
+  p = @(varargin) fprintf(fd, varargin{:});
+  global u
+  X = 1; Y = 2; Z = 3;
+  n = size(u);
+  o = [0, 0, 0];  # origin
+  s  = [1, 1, 1]; # spacing
+  p("DATASET STRUCTURED_POINTS\n")
+  p("DIMENSIONS %d %d %d\n",  n(X),  n(Y),  n(Z));
+  p("ORIGIN %17.8g %17.8g %17.8g\n", o(X), o(Y), o(Z));
+  p("SPACING %17.8g %17.8g %17.8g\n", s(X), s(Y), s(Z));
+endfunction
+
+function vtk_pdata_header(fd)
+  p = @(varargin) fprintf(fd, varargin{:});
+  global u
+  p("POINT_DATA %d\n", numel(u));
+endfunction
+
+function vtk_scalar(fd)
+  p = @(varargin) fprintf(fd, varargin{:});
+  global u
+  p("SCALARS %s %s\n", "u", "double")
+  p("LOOKUP_TABLE default\n")
+  dlmwrite(fd, u(:), ' ');
+endfunction
+
+fo = "o.vtk";
+fd = fopen(fo, "w");
+vtk_version(fd);
+vtk_header(fd);
+vtk_format(fd);
+vtk_topo(fd);
+vtk_pdata_header(fd);
+vtk_scalar(fd);
+fclose(fd);
