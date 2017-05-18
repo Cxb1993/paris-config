@@ -78,7 +78,7 @@ endfunction
 
 function vtk_format(fd)
   p = @(varargin) fprintf(fd, varargin{:});
-  p("ASCII\n");
+  p("BINARY\n"); % ASCII
 endfunction
 
 function vtk_topo(fd)
@@ -105,7 +105,9 @@ function vtk_scalar(fd)
   global u
   p("SCALARS %s %s\n", "u", "double")
   p("LOOKUP_TABLE default\n")
-  dlmwrite(fd, u(:), ' ');
+  ##  dlmwrite(fd, u(:), ' ');
+  skip = 0
+  fwrite(fd, u, "double", skip, "ieee-be");
 endfunction
 
 fo = "o.vtk";
