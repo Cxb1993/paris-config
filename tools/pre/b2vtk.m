@@ -120,20 +120,19 @@ function vtk_scalar()
   type = "double";
   p("SCALARS %s %s\n", "u", type)
   p("LOOKUP_TABLE default\n")
-  ##  dlmwrite(fd, u(:), ' ');
+  ### ASCII:  dlmwrite(fd, u(:), ' ');
   byte_skip = 0; arch = "ieee-be";
   fwrite(fd, u, type, byte_skip, arch);
 endfunction
 
 flist = argv();
-
 ginfo = limits(flist);
 field_ini(ginfo);
 field_read(flist);
 
 fo = "o.vtk";
 fd = fopen(fo, "w");
-vtk_version(fd); vtk_header(fd); vtk_format(fd);
-vtk_topo(fd);
-vtk_pdata_header(fd); vtk_scalar(fd);
+vtk_version(); vtk_header(); vtk_format();
+vtk_topo();
+vtk_pdata_header(); vtk_scalar();
 fclose(fd);
